@@ -6,20 +6,21 @@
     <title>Dashboard | CallAlly</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <style>
         :root {
-            --primary: #7c3aed;
-            --primary-dark: #6d28d9;
-            --primary-light: #a78bfa;
-            --primary-50: #f5f3ff;
-            --primary-100: #ede9fe;
-            --text-primary: #1e1b4b;
-            --text-secondary: #64748b;
+            --primary: #f59e0b;
+            --primary-dark: #d97706;
+            --primary-light: #fbbf24;
+            --primary-50: #fffbeb;
+            --primary-100: #fef3c7;
+            --slate-900: #0f172a;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
             --text-muted: #94a3b8;
             --bg-white: #ffffff;
-            --bg-gray: #f8fafc;
+            --bg-gray: #faf7f5;
             --bg-dark: #f1f5f9;
             --border: #e2e8f0;
             --border-light: #f1f5f9;
@@ -31,6 +32,8 @@
             --error-light: #fee2e2;
             --info: #3b82f6;
             --info-light: #dbeafe;
+            --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-serif: 'DM Serif Display', Georgia, serif;
         }
 
         * {
@@ -40,7 +43,7 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: var(--font-sans);
             background: var(--bg-gray);
             color: var(--text-primary);
             min-height: 100vh;
@@ -48,7 +51,7 @@
         }
 
         h1, h2, h3, h4, h5, h6 {
-            font-family: 'Outfit', sans-serif;
+            font-family: var(--font-sans);
             font-weight: 600;
         }
 
@@ -87,16 +90,16 @@
         .logo-icon {
             width: 36px;
             height: 36px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            background: var(--slate-900);
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
+            color: var(--primary);
         }
 
         .logo-text {
-            font-family: 'Outfit', sans-serif;
+            font-family: var(--font-sans);
             font-weight: 700;
             font-size: 1.25rem;
             color: var(--text-primary);
@@ -329,8 +332,8 @@
         }
 
         .stat-icon.purple {
-            background: var(--primary-100);
-            color: var(--primary);
+            background: #f1f5f9;
+            color: var(--slate-900);
         }
 
         .stat-icon.blue {
@@ -359,7 +362,7 @@
         }
 
         .stat-value {
-            font-family: 'Outfit', sans-serif;
+            font-family: var(--font-sans);
             font-size: 1.5rem;
             font-weight: 700;
             color: var(--text-primary);
@@ -614,12 +617,12 @@
         }
 
         .summary-value {
-            font-family: 'Outfit', sans-serif;
+            font-family: var(--font-sans);
             font-size: 1.75rem;
             font-weight: 700;
         }
 
-        .summary-value.purple { color: var(--primary); }
+        .summary-value.purple { color: var(--slate-900); }
         .summary-value.green { color: var(--success); }
         .summary-value.blue { color: var(--info); }
         .summary-value.amber { color: var(--warning); }
@@ -739,7 +742,7 @@
         }
 
         .sms-stat-value {
-            font-family: 'Outfit', sans-serif;
+            font-family: var(--font-sans);
             font-size: 1.5rem;
             font-weight: 700;
             margin-top: 4px;
@@ -845,8 +848,8 @@
         }
 
         .integration-icon.purple {
-            background: var(--primary-50);
-            color: var(--primary);
+            background: #f1f5f9;
+            color: var(--slate-900);
         }
 
         .integration-icon.blue {
@@ -2234,8 +2237,8 @@
                     datasets: [{
                         label: 'Calls',
                         data: callCounts,
-                        borderColor: '#7c3aed',
-                        backgroundColor: 'rgba(124, 58, 237, 0.1)',
+                        borderColor: '#0f172a',
+                        backgroundColor: 'rgba(15, 23, 42, 0.1)',
                         fill: true,
                         tension: 0.4
                     }, {
@@ -2302,7 +2305,7 @@
                     datasets: [{
                         label: 'Calls',
                         data: Object.values(durationBuckets),
-                        backgroundColor: '#7c3aed',
+                        backgroundColor: '#0f172a',
                         borderRadius: 6
                     }]
                 },
@@ -2339,7 +2342,7 @@
                     datasets: [{
                         label: 'Calls',
                         data: hourCounts,
-                        backgroundColor: hourCounts.map((_, i) => i === peakHour ? '#f59e0b' : '#7c3aed'),
+                        backgroundColor: hourCounts.map((_, i) => i === peakHour ? '#f59e0b' : '#0f172a'),
                         borderRadius: 4
                     }]
                 },

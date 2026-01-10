@@ -9,20 +9,21 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --primary: #7c3aed;
-            --primary-dark: #6d28d9;
-            --primary-light: #a78bfa;
-            --primary-50: #f5f3ff;
-            --primary-100: #ede9fe;
-            --text-primary: #1e1b4b;
-            --text-secondary: #64748b;
+            --primary: #f59e0b;
+            --primary-dark: #d97706;
+            --primary-light: #fbbf24;
+            --primary-50: #fffbeb;
+            --primary-100: #fef3c7;
+            --slate-900: #0f172a;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
             --text-muted: #94a3b8;
             --bg-white: #ffffff;
-            --bg-gray: #f8fafc;
+            --bg-gray: #faf7f5;
             --border: #e2e8f0;
             --success: #10b981;
             --success-light: #dcfce7;
@@ -32,6 +33,8 @@
             --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
             --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
             --shadow-lg: 0 10px 25px -3px rgb(0 0 0 / 0.1);
+            --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-serif: 'DM Serif Display', Georgia, serif;
         }
 
         * {
@@ -41,7 +44,7 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: var(--font-sans);
             color: var(--text-primary);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
@@ -50,7 +53,7 @@
         }
 
         .outfit {
-            font-family: 'Outfit', sans-serif;
+            font-family: var(--font-serif);
         }
 
         /* Navigation */
@@ -80,19 +83,17 @@
         .nav-logo-icon {
             width: 40px;
             height: 40px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            background: var(--slate-900);
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
         }
 
         .nav-logo-text {
-            font-family: 'Outfit', sans-serif;
-            font-size: 22px;
+            font-family: var(--font-sans);
+            font-size: 20px;
             font-weight: 700;
-            letter-spacing: -0.02em;
         }
 
         /* Main Container */
@@ -109,9 +110,9 @@
         }
 
         .header-title {
-            font-family: 'Outfit', sans-serif;
+            font-family: var(--font-serif);
             font-size: 28px;
-            font-weight: 700;
+            font-weight: 400;
             color: var(--text-primary);
             margin-bottom: 8px;
         }
@@ -139,7 +140,7 @@
 
         .progress-bar-fill {
             height: 100%;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            background: var(--slate-900);
             border-radius: 100px;
             transition: width 0.5s ease;
         }
@@ -153,7 +154,7 @@
         .progress-text {
             font-size: 14px;
             font-weight: 600;
-            color: var(--primary);
+            color: var(--slate-900);
         }
 
         .progress-percent {
@@ -188,9 +189,9 @@
         }
 
         .step-circle.active {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: white;
-            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+            background: var(--slate-900);
+            color: var(--primary);
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
         }
 
         .step-circle.completed {
@@ -210,7 +211,7 @@
         }
 
         .step-name.active {
-            color: var(--primary);
+            color: var(--slate-900);
             font-weight: 600;
         }
 
@@ -237,9 +238,9 @@
         }
 
         .step-title {
-            font-family: 'Outfit', sans-serif;
+            font-family: var(--font-serif);
             font-size: 22px;
-            font-weight: 600;
+            font-weight: 400;
             color: var(--text-primary);
             margin-bottom: 6px;
         }
@@ -276,8 +277,8 @@
         }
 
         .form-input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+            border-color: var(--slate-900);
+            box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.08);
         }
 
         .form-input::placeholder {
@@ -305,8 +306,8 @@
         }
 
         .form-select:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+            border-color: var(--slate-900);
+            box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.08);
         }
 
         /* Options Grid */
@@ -365,14 +366,14 @@
         }
 
         .option-card.selected .option-checkbox {
-            background: var(--primary);
-            border-color: var(--primary);
+            background: var(--slate-900);
+            border-color: var(--slate-900);
         }
 
         .option-checkbox svg {
             width: 12px;
             height: 12px;
-            color: white;
+            color: var(--primary);
             opacity: 0;
             transition: opacity 0.2s;
         }
@@ -485,14 +486,14 @@
         }
 
         .radio-card.selected .radio-indicator {
-            background: var(--primary);
-            border-color: var(--primary);
+            background: var(--slate-900);
+            border-color: var(--slate-900);
         }
 
         .radio-indicator svg {
             width: 14px;
             height: 14px;
-            color: white;
+            color: var(--primary);
             opacity: 0;
         }
 
@@ -556,13 +557,13 @@
         }
 
         .voice-card.selected .voice-check {
-            background: var(--primary);
+            background: var(--slate-900);
         }
 
         .voice-check svg {
             width: 12px;
             height: 12px;
-            color: white;
+            color: var(--primary);
             opacity: 0;
         }
 
@@ -768,14 +769,15 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: white;
-            box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35);
+            background: var(--primary);
+            color: var(--slate-900);
+            box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
         }
 
         .btn-primary:hover {
+            background: var(--primary-dark);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(124, 58, 237, 0.45);
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.45);
         }
 
         .btn-success {
@@ -835,7 +837,7 @@
             width: 64px;
             height: 64px;
             border: 4px solid var(--border);
-            border-top-color: var(--primary);
+            border-top-color: var(--slate-900);
             border-radius: 50%;
             animation: spin 1s linear infinite;
             margin: 0 auto 24px;
@@ -846,9 +848,9 @@
         }
 
         .loading-title {
-            font-family: 'Outfit', sans-serif;
+            font-family: var(--font-serif);
             font-size: 20px;
-            font-weight: 600;
+            font-weight: 400;
             color: var(--text-primary);
             margin-bottom: 8px;
         }
@@ -899,11 +901,11 @@
         <div class="nav-inner">
             <a href="/" class="nav-logo">
                 <div class="nav-logo-icon">
-                    <svg width="22" height="22" fill="none" stroke="white" viewBox="0 0 24 24" stroke-width="2">
+                    <svg width="20" height="20" fill="none" stroke="#fbbf24" viewBox="0 0 24 24" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
                     </svg>
                 </div>
-                <span class="nav-logo-text outfit">CallAlly</span>
+                <span class="nav-logo-text">CallAlly</span>
             </a>
         </div>
     </nav>
@@ -911,7 +913,7 @@
     <div class="main">
         <!-- Header -->
         <div class="header">
-            <h1 class="header-title outfit">Set up your AI agent</h1>
+            <h1 class="header-title">Set up your AI agent</h1>
             <p class="header-subtitle">This takes about 3 minutes</p>
         </div>
 
