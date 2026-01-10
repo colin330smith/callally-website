@@ -28,43 +28,54 @@ async def signup(request: SignupRequest, db: AsyncSession = Depends(get_db)):
     Create a new user account and business.
     Returns JWT token and business_id.
     """
-    # Check if email already exists
-    result = await db.execute(select(User).where(User.email == request.email))
-    existing_user = result.scalar_one_or_none()
+    try:
+        # Check if email already exists
+        result = await db.execute(select(User).where(User.email == request.email))
+        existing_user = result.scalar_one_or_none()
 
-    if existing_user:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Email already registered"
+        if existing_user:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Email already registered"
+            )
+
+        # Create user
+        user = User(
+            id=uuid4(),
+            email=request.email,
+            password_hash=AuthService.hash_password(request.password)
         )
+        db.add(user)
+        await db.flush()
 
-    # Create user
-    user = User(
-        id=uuid4(),
-        email=request.email,
-        password_hash=AuthService.hash_password(request.password)
-    )
-    db.add(user)
-    await db.flush()
+        # Create business
+        business = Business(
+            id=uuid4(),
+            user_id=user.id,
+            name=request.business_name,
+            notification_email=request.email,
+            onboarding_step=1
+        )
+        db.add(business)
+        await db.commit()
 
-    # Create business
-    business = Business(
-        id=uuid4(),
-        user_id=user.id,
-        name=request.business_name,
-        notification_email=request.email,
-        onboarding_step=1
-    )
-    db.add(business)
-    await db.commit()
+        # Generate token
+        token = AuthService.create_access_token(str(user.id))
 
-    # Generate token
-    token = AuthService.create_access_token(str(user.id))
-
-    return TokenResponse(
-        access_token=token,
-        business_id=business.id
-    )
+        return TokenResponse(
+            access_token=token,
+            business_id=business.id
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        import traceback
+        print(f"Signup error: {type(e).__name__}: {e}")
+        print(traceback.format_exc())
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Signup failed: {type(e).__name__}: {str(e)}"
+        )
 
 
 @router.post("/login", response_model=TokenResponse)

@@ -1,0 +1,6 @@
+api/deploy.sh
+api/.env
+**/__pycache__/
+*.pyc
+.env
+.venv/
