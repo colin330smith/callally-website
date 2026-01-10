@@ -52,9 +52,8 @@ async def signup(request: SignupRequest, db: AsyncSession = Depends(get_db)):
         id=uuid4(),
         user_id=user.id,
         name=request.business_name,
-        email=request.email,
-        onboarding_step=1,
-        onboarding_complete=False
+        notification_email=request.email,
+        onboarding_step=1
     )
     db.add(business)
     await db.commit()
