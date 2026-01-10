@@ -1,0 +1,169 @@
+
+╔═══════════════════════════════════════════════════════════╗
+║                                                           ║
+║           🎯 CALLALLY SALES ENGINE - HUNT MODE 🎯         ║
+║                                                           ║
+║           Hunting for that first customer...              ║
+║                                                           ║
+╚═══════════════════════════════════════════════════════════╝
+    
+Initializing database...
+Database initialized successfully.
+Loading email sequences...
+Loaded 7 email sequences.
+
+Starting the hunt...
+
+Database initialized successfully.
+
+╔═══════════════════════════════════════════════════════════╗
+║                                                           ║
+║   🎯 HUNTING MODE: FIRST CUSTOMER ACQUISITION 🎯         ║
+║                                                           ║
+║   We will not stop until we get a customer.               ║
+║                                                           ║
+╚═══════════════════════════════════════════════════════════╝
+        
+
+[PHASE 1] Loading the pipeline...
+==================================================
+Scraping: hvac in Phoenix, AZ
+Yelp API key not configured
+  Added 0 leads
+Scraping: plumber in Phoenix, AZ
+Yelp API key not configured
+  Added 0 leads
+Scraping: electrician in Phoenix, AZ
+Yelp API key not configured
+  Added 0 leads
+Scraping: hvac in Houston, TX
+Yelp API key not configured
+  Added 0 leads
+Scraping: plumber in Houston, TX
+Yelp API key not configured
+  Added 0 leads
+Scraping: electrician in Houston, TX
+Yelp API key not configured
+  Added 0 leads
+Scraping: hvac in Miami, FL
+Yelp API key not configured
+  Added 0 leads
+Scraping: plumber in Miami, FL
+Yelp API key not configured
+  Added 0 leads
+Scraping: electrician in Miami, FL
+Yelp API key not configured
+  Added 0 leads
+Scraping: hvac in Dallas, TX
+Yelp API key not configured
+  Added 0 leads
+Scraping: plumber in Dallas, TX
+Yelp API key not configured
+  Added 0 leads
+Scraping: electrician in Dallas, TX
+Yelp API key not configured
+  Added 0 leads
+Scraping: hvac in Los Angeles, CA
+Yelp API key not configured
+  Added 0 leads
+Scraping: plumber in Los Angeles, CA
+Yelp API key not configured
+  Added 0 leads
+Scraping: electrician in Los Angeles, CA
+Yelp API key not configured
+  Added 0 leads
+
+Total new leads added: 0
+Pipeline loaded with 0 fresh leads
+
+
+[PHASE 2] Multi-channel outreach blitz...
+==================================================
+
+📧 Sending emails...
+
+==================================================
+CallAlly Email Campaign - 2026-01-09 21:12
+==================================================
+
+Found 5 leads for email outreach
+
+✗ Failed: mike@phoenixcomfort.com - The callallynow.com domain is not verified. Please, add and verify your domain on https://resend.com/domains
+✗ Failed: sarah@houstonproplumbing.com - The callallynow.com domain is not verified. Please, add and verify your domain on https://resend.com/domains
+✗ Failed: james@dfwelectric.com - The callallynow.com domain is not verified. Please, add and verify your domain on https://resend.com/domains
+✗ Failed: dr.garcia@miamismile.com - The callallynow.com domain is not verified. Please, add and verify your domain on https://resend.com/domains
+✗ Failed: robert@lacoolair.com - The callallynow.com domain is not verified. Please, add and verify your domain on https://resend.com/domains
+
+==================================================
+Results: 0 sent, 5 failed
+==================================================
+
+
+📱 Sending SMS...
+
+==================================================
+CallAlly SMS Campaign - 2026-01-09 21:12
+==================================================
+
+Found 5 leads for SMS outreach
+
+✗ Failed: +16025551234 - Twilio not configured
+✗ Failed: +17135559876 - Twilio not configured
+✗ Failed: +12145554321 - Twilio not configured
+✗ Failed: +13055556789 - Twilio not configured
+✗ Failed: +13235558765 - Twilio not configured
+
+==================================================
+Results: 0 sent, 5 failed
+==================================================
+
+
+📞 Calling hottest leads...
+
+==================================================
+CallAlly AI Calling Campaign - 2026-01-09 21:12
+==================================================
+
+Found 5 leads for calling
+
+✗ Failed: Phoenix Comfort HVAC - {"message":["assistantId must be a UUID","assistantOverrides.model.provider must be one of the following values: openai, azure-openai, together-ai, anyscale, openrouter, perplexity-ai, deepinfra, custom-llm, runpod, groq, vapi, anthropic, anthropic-bedrock, anthropic-vertex, google, xai, inflection-ai, cerebras, deep-seek, mistral"],"error":"Bad Request","statusCode":400}
+✗ Failed: Houston Pro Plumbing - {"message":["assistantId must be a UUID","assistantOverrides.model.provider must be one of the following values: openai, azure-openai, together-ai, anyscale, openrouter, perplexity-ai, deepinfra, custom-llm, runpod, groq, vapi, anthropic, anthropic-bedrock, anthropic-vertex, google, xai, inflection-ai, cerebras, deep-seek, mistral"],"error":"Bad Request","statusCode":400}
+✗ Failed: DFW Electric Masters - {"message":["assistantId must be a UUID","assistantOverrides.model.provider must be one of the following values: openai, azure-openai, together-ai, anyscale, openrouter, perplexity-ai, deepinfra, custom-llm, runpod, groq, vapi, anthropic, anthropic-bedrock, anthropic-vertex, google, xai, inflection-ai, cerebras, deep-seek, mistral"],"error":"Bad Request","statusCode":400}
+✗ Failed: Miami Smile Dental - {"message":["assistantId must be a UUID","assistantOverrides.model.provider must be one of the following values: openai, azure-openai, together-ai, anyscale, openrouter, perplexity-ai, deepinfra, custom-llm, runpod, groq, vapi, anthropic, anthropic-bedrock, anthropic-vertex, google, xai, inflection-ai, cerebras, deep-seek, mistral"],"error":"Bad Request","statusCode":400}
+✗ Failed: LA Cool Air - {"message":["assistantId must be a UUID","assistantOverrides.model.provider must be one of the following values: openai, azure-openai, together-ai, anyscale, openrouter, perplexity-ai, deepinfra, custom-llm, runpod, groq, vapi, anthropic, anthropic-bedrock, anthropic-vertex, google, xai, inflection-ai, cerebras, deep-seek, mistral"],"error":"Bad Request","statusCode":400}
+
+==================================================
+Results: 0 calls initiated, 5 failed
+==================================================
+
+
+[PHASE 3] Hunt Status Report
+==================================================
+
+┌─────────────────────────────────────┐
+│       CALLALLY PIPELINE STATS       │
+├─────────────────────────────────────┤
+│ Total Leads:         15              │
+│ Conversion Rate:   0.0%             │
+├─────────────────────────────────────┤
+│ BY STATUS:                          │
+│   new                 15            │
+├─────────────────────────────────────┤
+│ TODAY'S OUTREACH:                   │
+│   call                 5            │
+│   email               22            │
+└─────────────────────────────────────┘
+        
+
+╔═══════════════════════════════════════════════════════════╗
+║                                                           ║
+║   NEXT STEPS:                                             ║
+║   1. Monitor for email opens/replies                      ║
+║   2. Check call recordings for interested leads           ║
+║   3. Follow up on SMS responses                           ║
+║   4. Run this again in 24 hours                           ║
+║                                                           ║
+║   🎯 THE FIRST CUSTOMER IS OUT THERE. WE WILL FIND THEM. ║
+║                                                           ║
+╚═══════════════════════════════════════════════════════════╝
+        

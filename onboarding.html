@@ -1,0 +1,1600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set Up Your AI Agent | CallAlly</title>
+    <meta name="description" content="Configure your AI receptionist in just a few minutes. No technical skills required.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #7c3aed;
+            --primary-dark: #6d28d9;
+            --primary-light: #a78bfa;
+            --primary-50: #f5f3ff;
+            --primary-100: #ede9fe;
+            --text-primary: #1e1b4b;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+            --bg-white: #ffffff;
+            --bg-gray: #f8fafc;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --success-light: #dcfce7;
+            --warning: #f59e0b;
+            --warning-light: #fef3c7;
+            --error: #ef4444;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 25px -3px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            background: var(--bg-gray);
+        }
+
+        .outfit {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border);
+            padding: 0 24px;
+        }
+
+        .nav-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 72px;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .nav-logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+        }
+
+        .nav-logo-text {
+            font-family: 'Outfit', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        /* Main Container */
+        .main {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 32px 24px 64px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .header-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .header-subtitle {
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin-bottom: 32px;
+        }
+
+        .progress-bar-wrapper {
+            position: relative;
+        }
+
+        .progress-bar-bg {
+            height: 8px;
+            background: var(--border);
+            border-radius: 100px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-radius: 100px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+        }
+
+        .progress-text {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .progress-percent {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        /* Step Labels */
+        .step-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .step-label {
+            text-align: center;
+            flex: 1;
+        }
+
+        .step-circle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 8px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .step-circle.active {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+        }
+
+        .step-circle.completed {
+            background: var(--success);
+            color: white;
+        }
+
+        .step-circle.pending {
+            background: var(--border);
+            color: var(--text-muted);
+        }
+
+        .step-name {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .step-name.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Form Card */
+        .form-card {
+            background: var(--bg-white);
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .step-content {
+            padding: 32px;
+            display: none;
+        }
+
+        .step-content.active {
+            display: block;
+        }
+
+        .step-header {
+            margin-bottom: 24px;
+        }
+
+        .step-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .step-description {
+            font-size: 15px;
+            color: var(--text-secondary);
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 15px;
+            font-family: inherit;
+            color: var(--text-primary);
+            background: var(--bg-white);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            transition: all 0.2s;
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 15px;
+            font-family: inherit;
+            color: var(--text-primary);
+            background: var(--bg-white);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            transition: all 0.2s;
+            outline: none;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 20px;
+            padding-right: 48px;
+        }
+
+        .form-select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+        }
+
+        /* Options Grid */
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        @media (max-width: 640px) {
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .option-card {
+            position: relative;
+            padding: 16px;
+            background: var(--bg-gray);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-card:hover {
+            border-color: var(--primary-light);
+        }
+
+        .option-card.selected {
+            border-color: var(--primary);
+            background: var(--primary-50);
+        }
+
+        .option-card input {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .option-card-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .option-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .option-card.selected .option-checkbox {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .option-checkbox svg {
+            width: 12px;
+            height: 12px;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .option-card.selected .option-checkbox svg {
+            opacity: 1;
+        }
+
+        .option-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        /* Radio Cards */
+        .radio-card {
+            position: relative;
+            padding: 20px;
+            background: var(--bg-white);
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 12px;
+        }
+
+        .radio-card:hover {
+            border-color: var(--primary-light);
+        }
+
+        .radio-card.selected {
+            border-color: var(--primary);
+            background: var(--primary-50);
+        }
+
+        .radio-card input {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .radio-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .radio-card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .radio-card-badge {
+            padding: 4px 10px;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 50px;
+        }
+
+        .badge-recommended {
+            background: var(--success-light);
+            color: #166534;
+        }
+
+        .badge-handfree {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .radio-card-description {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .radio-card-features {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .radio-card-feature {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .radio-card-feature svg {
+            width: 16px;
+            height: 16px;
+            color: var(--success);
+        }
+
+        .radio-indicator {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .radio-card.selected .radio-indicator {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .radio-indicator svg {
+            width: 14px;
+            height: 14px;
+            color: white;
+            opacity: 0;
+        }
+
+        .radio-card.selected .radio-indicator svg {
+            opacity: 1;
+        }
+
+        /* Voice Cards */
+        .voice-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .voice-card {
+            position: relative;
+            padding: 16px;
+            background: var(--bg-white);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .voice-card:hover {
+            border-color: var(--primary-light);
+        }
+
+        .voice-card.selected {
+            border-color: var(--primary);
+            background: var(--primary-50);
+        }
+
+        .voice-card input {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .voice-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+
+        .voice-card-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .voice-check {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .voice-card.selected .voice-check {
+            background: var(--primary);
+        }
+
+        .voice-check svg {
+            width: 12px;
+            height: 12px;
+            color: white;
+            opacity: 0;
+        }
+
+        .voice-card.selected .voice-check svg {
+            opacity: 1;
+        }
+
+        .voice-card-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* Emergency Section */
+        .emergency-section {
+            padding: 20px;
+            background: var(--warning-light);
+            border: 1px solid #fde68a;
+            border-radius: 16px;
+            margin-top: 24px;
+        }
+
+        .emergency-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .emergency-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .emergency-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--warning);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .emergency-icon svg {
+            width: 20px;
+            height: 20px;
+            color: white;
+        }
+
+        .emergency-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .emergency-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            width: 52px;
+            height: 28px;
+            flex-shrink: 0;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--border);
+            border-radius: 50px;
+            transition: 0.3s;
+        }
+
+        .toggle-slider::before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 3px;
+            bottom: 3px;
+            background: white;
+            border-radius: 50%;
+            transition: 0.3s;
+            box-shadow: var(--shadow-sm);
+        }
+
+        input:checked + .toggle-slider {
+            background: var(--warning);
+        }
+
+        input:checked + .toggle-slider::before {
+            transform: translateX(24px);
+        }
+
+        .emergency-fields {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .emergency-fields.visible {
+            display: block;
+        }
+
+        /* Summary */
+        .summary-grid {
+            display: grid;
+            gap: 12px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .summary-label {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .summary-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Info Box */
+        .info-box {
+            padding: 16px;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 12px;
+            margin-top: 24px;
+        }
+
+        .info-box-content {
+            display: flex;
+            gap: 12px;
+        }
+
+        .info-box-icon {
+            width: 20px;
+            height: 20px;
+            color: #2563eb;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .info-box-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 4px;
+        }
+
+        .info-box-text {
+            font-size: 14px;
+            color: #3b82f6;
+            line-height: 1.5;
+        }
+
+        /* Navigation */
+        .form-nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 32px;
+            background: var(--bg-gray);
+            border-top: 1px solid var(--border);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 24px;
+            font-size: 15px;
+            font-weight: 600;
+            font-family: inherit;
+            text-decoration: none;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(124, 58, 237, 0.45);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+            color: white;
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45);
+        }
+
+        .btn-secondary {
+            background: var(--bg-white);
+            color: var(--text-secondary);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-gray);
+            color: var(--text-primary);
+        }
+
+        .btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Loading Modal */
+        .loading-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .loading-modal.visible {
+            display: flex;
+        }
+
+        .loading-card {
+            background: var(--bg-white);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            max-width: 360px;
+            width: 90%;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .loading-spinner {
+            width: 64px;
+            height: 64px;
+            border: 4px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 24px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .loading-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Divider */
+        .divider {
+            border-top: 1px solid var(--border);
+            margin: 24px 0;
+            padding-top: 24px;
+        }
+
+        .divider-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        /* Form Row */
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 640px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Helper Text */
+        .form-helper {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="/" class="nav-logo">
+                <div class="nav-logo-icon">
+                    <svg width="22" height="22" fill="none" stroke="white" viewBox="0 0 24 24" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                    </svg>
+                </div>
+                <span class="nav-logo-text outfit">CallAlly</span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="main">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="header-title outfit">Set up your AI agent</h1>
+            <p class="header-subtitle">This takes about 3 minutes</p>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-bar-wrapper">
+                <div class="progress-bar-bg">
+                    <div id="progressBar" class="progress-bar-fill" style="width: 20%"></div>
+                </div>
+                <div class="progress-info">
+                    <span id="progressText" class="progress-text">Step 1 of 5</span>
+                    <span id="progressPercent" class="progress-percent">20%</span>
+                </div>
+            </div>
+
+            <div class="step-labels">
+                <div class="step-label" data-step="1">
+                    <div class="step-circle active">1</div>
+                    <span class="step-name active">Business</span>
+                </div>
+                <div class="step-label" data-step="2">
+                    <div class="step-circle pending">2</div>
+                    <span class="step-name">Services</span>
+                </div>
+                <div class="step-label" data-step="3">
+                    <div class="step-circle pending">3</div>
+                    <span class="step-name">Call Mode</span>
+                </div>
+                <div class="step-label" data-step="4">
+                    <div class="step-circle pending">4</div>
+                    <span class="step-name">Agent</span>
+                </div>
+                <div class="step-label" data-step="5">
+                    <div class="step-circle pending">5</div>
+                    <span class="step-name">Launch</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Card -->
+        <div class="form-card">
+            <!-- Step 1: Business Info -->
+            <div class="step-content active" data-step="1">
+                <div class="step-header">
+                    <h2 class="step-title">Tell us about your business</h2>
+                    <p class="step-description">We'll use this to customize your AI agent.</p>
+                </div>
+                <div class="form-group">
+                    <label for="name" class="form-label">Business name</label>
+                    <input type="text" id="name" class="form-input" placeholder="Acme Plumbing" required>
+                </div>
+                <div class="form-group">
+                    <label for="industry" class="form-label">Industry</label>
+                    <select id="industry" class="form-select" required>
+                        <option value="">Select your industry</option>
+                        <option value="hvac">HVAC / Heating & Cooling</option>
+                        <option value="plumbing">Plumbing</option>
+                        <option value="electrical">Electrical</option>
+                        <option value="roofing">Roofing</option>
+                        <option value="landscaping">Landscaping</option>
+                        <option value="cleaning">Cleaning Services</option>
+                        <option value="dental">Dental Practice</option>
+                        <option value="medical">Medical Practice</option>
+                        <option value="medspa">Med Spa / Aesthetics</option>
+                        <option value="legal">Law Firm</option>
+                        <option value="accounting">Accounting / CPA</option>
+                        <option value="realestate">Real Estate</option>
+                        <option value="automotive">Auto Repair</option>
+                        <option value="restaurant">Restaurant</option>
+                        <option value="salon">Salon / Barbershop</option>
+                        <option value="fitness">Gym / Fitness</option>
+                        <option value="veterinary">Veterinary</option>
+                        <option value="insurance">Insurance</option>
+                        <option value="contractor">General Contractor</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="phone" class="form-label">Business phone</label>
+                    <input type="tel" id="phone" class="form-input" placeholder="(555) 123-4567" inputmode="tel" autocomplete="tel">
+                </div>
+                <div class="form-group">
+                    <label for="service_area" class="form-label">Service area</label>
+                    <input type="text" id="service_area" class="form-input" placeholder="Austin, TX and surrounding areas">
+                </div>
+            </div>
+
+            <!-- Step 2: Services -->
+            <div class="step-content" data-step="2">
+                <div class="step-header">
+                    <h2 class="step-title">What services do you offer?</h2>
+                    <p class="step-description">Select all services your business provides.</p>
+                </div>
+                <div class="options-grid" id="serviceCheckboxes">
+                    <!-- Populated dynamically -->
+                </div>
+                <div class="form-group" style="margin-top: 20px;">
+                    <label for="other_services" class="form-label">Other services (comma-separated)</label>
+                    <input type="text" id="other_services" class="form-input" placeholder="Custom service 1, Custom service 2">
+                </div>
+                <div class="divider">
+                    <h3 class="divider-title">Business hours</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="hours_weekday" class="form-label">Weekdays</label>
+                            <select id="hours_weekday" class="form-select">
+                                <option value="8am-5pm">8:00 AM - 5:00 PM</option>
+                                <option value="8am-6pm">8:00 AM - 6:00 PM</option>
+                                <option value="9am-5pm">9:00 AM - 5:00 PM</option>
+                                <option value="9am-6pm">9:00 AM - 6:00 PM</option>
+                                <option value="7am-7pm">7:00 AM - 7:00 PM</option>
+                                <option value="24/7">24/7</option>
+                                <option value="closed">Closed</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="hours_weekend" class="form-label">Weekends</label>
+                            <select id="hours_weekend" class="form-select">
+                                <option value="closed">Closed</option>
+                                <option value="9am-2pm">9:00 AM - 2:00 PM</option>
+                                <option value="9am-5pm">9:00 AM - 5:00 PM</option>
+                                <option value="10am-4pm">10:00 AM - 4:00 PM</option>
+                                <option value="by-appointment">By Appointment</option>
+                                <option value="24/7">24/7</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Call Mode -->
+            <div class="step-content" data-step="3">
+                <div class="step-header">
+                    <h2 class="step-title">How should AI handle your calls?</h2>
+                    <p class="step-description">Choose how you want CallAlly to work with your existing phone.</p>
+                </div>
+
+                <label class="radio-card selected" data-mode="forwarding">
+                    <input type="radio" name="call_mode" value="forwarding" checked>
+                    <div class="radio-card-header">
+                        <span class="radio-card-title">Call Forwarding</span>
+                        <span class="radio-card-badge badge-recommended">Recommended</span>
+                    </div>
+                    <p class="radio-card-description">AI catches calls only when you don't answer. Your phone rings first, and if you miss it, AI picks up before voicemail.</p>
+                    <div class="radio-card-features">
+                        <div class="radio-card-feature">
+                            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                            Keep your existing number
+                        </div>
+                        <div class="radio-card-feature">
+                            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                            Answer calls yourself when available
+                        </div>
+                    </div>
+                    <div class="radio-indicator">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                    </div>
+                </label>
+
+                <label class="radio-card" data-mode="takeover">
+                    <input type="radio" name="call_mode" value="takeover">
+                    <div class="radio-card-header">
+                        <span class="radio-card-title">Full Takeover</span>
+                        <span class="radio-card-badge badge-handfree">Hands-free</span>
+                    </div>
+                    <p class="radio-card-description">AI handles ALL calls. Every call goes directly to your AI agent. Perfect if you want to focus 100% on fieldwork.</p>
+                    <div class="radio-card-features">
+                        <div class="radio-card-feature">
+                            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                            Zero interruptions
+                        </div>
+                        <div class="radio-card-feature">
+                            <svg fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                            Get notifications for urgent calls
+                        </div>
+                    </div>
+                    <div class="radio-indicator">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                    </div>
+                </label>
+
+                <div id="forwardingOptions" class="divider">
+                    <h3 class="divider-title">Forwarding options</h3>
+                    <div class="form-group">
+                        <label for="rings_before_ai" class="form-label">Number of rings before AI answers</label>
+                        <select id="rings_before_ai" class="form-select">
+                            <option value="2">2 rings (~10 seconds)</option>
+                            <option value="3" selected>3 rings (~15 seconds)</option>
+                            <option value="4">4 rings (~20 seconds)</option>
+                            <option value="5">5 rings (~25 seconds)</option>
+                        </select>
+                        <p class="form-helper">How long your phone rings before AI picks up.</p>
+                    </div>
+                </div>
+
+                <div class="emergency-section">
+                    <div class="emergency-header">
+                        <div class="emergency-info">
+                            <div class="emergency-icon">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="emergency-title">Emergency Dispatch Mode</div>
+                                <div class="emergency-desc">AI alerts your team during urgent calls</div>
+                            </div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="emergency_dispatch">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div id="emergencyFields" class="emergency-fields">
+                        <div class="form-group">
+                            <label for="oncall_phones" class="form-label">On-call worker phones</label>
+                            <input type="text" id="oncall_phones" class="form-input" placeholder="(555) 111-2222, (555) 333-4444">
+                            <p class="form-helper">AI will call these numbers in order during emergencies.</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="emergency_keywords" class="form-label">Emergency keywords</label>
+                            <input type="text" id="emergency_keywords" class="form-input" placeholder="emergency, urgent, flooding, no heat, burst pipe">
+                            <p class="form-helper">What words trigger emergency dispatch.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Agent Config -->
+            <div class="step-content" data-step="4">
+                <div class="step-header">
+                    <h2 class="step-title">Customize your AI agent</h2>
+                    <p class="step-description">Choose how your AI introduces itself to callers.</p>
+                </div>
+                <div class="form-group">
+                    <label for="agent_name" class="form-label">Agent name</label>
+                    <select id="agent_name" class="form-select">
+                        <option value="Alex">Alex</option>
+                        <option value="Sam">Sam</option>
+                        <option value="Jordan">Jordan</option>
+                        <option value="Taylor">Taylor</option>
+                        <option value="Morgan">Morgan</option>
+                        <option value="Casey">Casey</option>
+                        <option value="Riley">Riley</option>
+                    </select>
+                    <p class="form-helper">The name your AI will use when answering calls.</p>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Voice</label>
+                    <div class="voice-grid">
+                        <label class="voice-card selected" data-voice="rachel">
+                            <input type="radio" name="agent_voice" value="rachel" checked>
+                            <div class="voice-card-header">
+                                <span class="voice-card-name">Rachel</span>
+                                <div class="voice-check">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                </div>
+                            </div>
+                            <span class="voice-card-desc">Warm, professional female</span>
+                        </label>
+                        <label class="voice-card" data-voice="adam">
+                            <input type="radio" name="agent_voice" value="adam">
+                            <div class="voice-card-header">
+                                <span class="voice-card-name">Adam</span>
+                                <div class="voice-check">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                </div>
+                            </div>
+                            <span class="voice-card-desc">Professional male</span>
+                        </label>
+                        <label class="voice-card" data-voice="sarah">
+                            <input type="radio" name="agent_voice" value="sarah">
+                            <div class="voice-card-header">
+                                <span class="voice-card-name">Sarah</span>
+                                <div class="voice-check">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                </div>
+                            </div>
+                            <span class="voice-card-desc">Friendly, upbeat female</span>
+                        </label>
+                        <label class="voice-card" data-voice="josh">
+                            <input type="radio" name="agent_voice" value="josh">
+                            <div class="voice-card-header">
+                                <span class="voice-card-name">Josh</span>
+                                <div class="voice-check">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                </div>
+                            </div>
+                            <span class="voice-card-desc">Casual, approachable male</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="divider">
+                    <h3 class="divider-title">Appointment types your AI can book</h3>
+                    <div class="options-grid" id="appointmentTypes">
+                        <label class="option-card selected">
+                            <input type="checkbox" value="service-call" class="appointment-type" checked>
+                            <div class="option-card-content">
+                                <div class="option-checkbox">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                </div>
+                                <span class="option-label">Service call</span>
+                            </div>
+                        </label>
+                        <label class="option-card selected">
+                            <input type="checkbox" value="estimate" class="appointment-type" checked>
+                            <div class="option-card-content">
+                                <div class="option-checkbox">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                </div>
+                                <span class="option-label">Free estimate</span>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="checkbox" value="consultation" class="appointment-type">
+                            <div class="option-card-content">
+                                <div class="option-checkbox">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                </div>
+                                <span class="option-label">Consultation</span>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="checkbox" value="maintenance" class="appointment-type">
+                            <div class="option-card-content">
+                                <div class="option-checkbox">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                </div>
+                                <span class="option-label">Maintenance</span>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="checkbox" value="emergency" class="appointment-type">
+                            <div class="option-card-content">
+                                <div class="option-checkbox">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                </div>
+                                <span class="option-label">Emergency</span>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="checkbox" value="follow-up" class="appointment-type">
+                            <div class="option-card-content">
+                                <div class="option-checkbox">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                                </div>
+                                <span class="option-label">Follow-up</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5: Launch -->
+            <div class="step-content" data-step="5">
+                <div class="step-header">
+                    <h2 class="step-title">Almost done!</h2>
+                    <p class="step-description">Set up notifications to stay informed about calls.</p>
+                </div>
+                <div class="form-group">
+                    <label for="notification_email" class="form-label">Notification email</label>
+                    <input type="email" id="notification_email" class="form-input" placeholder="you@business.com" inputmode="email" autocomplete="email">
+                    <p class="form-helper">Get call summaries and appointment bookings sent here.</p>
+                </div>
+                <div class="form-group">
+                    <label for="notification_phone" class="form-label">SMS notifications <span style="color: var(--text-muted); font-weight: 400;">(optional)</span></label>
+                    <input type="tel" id="notification_phone" class="form-input" placeholder="(555) 123-4567" inputmode="tel" autocomplete="tel">
+                    <p class="form-helper">Get instant text alerts for each call.</p>
+                </div>
+
+                <div class="divider">
+                    <h3 class="divider-title">Summary</h3>
+                    <div id="summary" class="summary-grid">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-box-content">
+                        <svg class="info-box-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <div>
+                            <p class="info-box-title">AI Disclosure</p>
+                            <p class="info-box-text">Your AI will identify itself as an AI assistant to all callers for transparency and compliance.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="form-nav">
+                <button id="prevBtn" class="btn btn-secondary" style="visibility: hidden;">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+                    Back
+                </button>
+                <button id="nextBtn" class="btn btn-primary">
+                    Continue
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Modal -->
+    <div id="loadingModal" class="loading-modal">
+        <div class="loading-card">
+            <div class="loading-spinner"></div>
+            <h3 class="loading-title">Creating your AI agent...</h3>
+            <p class="loading-text">This takes about 10 seconds</p>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 5;
+        let businessId = null;
+        let formData = {};
+
+        // Industry-specific services
+        const industryServices = {
+            hvac: ['AC Repair', 'AC Installation', 'Heating Repair', 'Furnace Installation', 'Duct Cleaning', 'Maintenance Plans', 'Indoor Air Quality', 'Thermostat Installation'],
+            plumbing: ['Drain Cleaning', 'Leak Repair', 'Water Heater Service', 'Pipe Repair', 'Sewer Line Service', 'Fixture Installation', 'Emergency Plumbing', 'Repiping'],
+            electrical: ['Electrical Repair', 'Panel Upgrades', 'Outlet Installation', 'Lighting Installation', 'Ceiling Fan Installation', 'Generator Installation', 'EV Charger Installation', 'Safety Inspections'],
+            roofing: ['Roof Repair', 'Roof Replacement', 'Roof Inspection', 'Gutter Installation', 'Leak Repair', 'Storm Damage Repair', 'Commercial Roofing', 'Roof Maintenance'],
+            landscaping: ['Lawn Care', 'Landscape Design', 'Tree Service', 'Irrigation', 'Hardscaping', 'Seasonal Cleanup', 'Mulching', 'Sod Installation'],
+            cleaning: ['House Cleaning', 'Deep Cleaning', 'Move-in/Move-out', 'Office Cleaning', 'Window Cleaning', 'Carpet Cleaning', 'Post-Construction', 'Recurring Service'],
+            dental: ['Cleanings', 'Fillings', 'Crowns', 'Root Canals', 'Teeth Whitening', 'Invisalign', 'Implants', 'Emergency Dental'],
+            medical: ['Annual Physicals', 'Sick Visits', 'Preventive Care', 'Chronic Disease Management', 'Immunizations', 'Lab Work', 'Referrals', 'Telehealth'],
+            medspa: ['Botox', 'Fillers', 'Laser Treatments', 'Chemical Peels', 'Microneedling', 'Body Contouring', 'IV Therapy', 'Consultations'],
+            legal: ['Free Consultation', 'Case Review', 'Document Preparation', 'Court Representation', 'Mediation', 'Legal Advice', 'Contract Review', 'Estate Planning'],
+            automotive: ['Oil Change', 'Brake Service', 'Tire Service', 'Engine Repair', 'Transmission Service', 'AC Service', 'Diagnostics', 'Inspection'],
+            salon: ['Haircut', 'Color', 'Highlights', 'Blowout', 'Styling', 'Treatments', 'Manicure', 'Pedicure'],
+            default: ['General Service', 'Consultation', 'Estimate', 'Repair', 'Installation', 'Maintenance', 'Emergency Service', 'Follow-up']
+        };
+
+        async function init() {
+            const response = await fetch('/api/auth/me');
+            const data = await response.json();
+
+            if (!data.authenticated) {
+                window.location.href = '/signup.html';
+                return;
+            }
+
+            if (data.businesses && data.businesses.length > 0) {
+                businessId = data.businesses[0].id;
+                const biz = data.businesses[0];
+                if (biz.name) document.getElementById('name').value = biz.name;
+                if (biz.industry) {
+                    document.getElementById('industry').value = biz.industry;
+                    updateServicesForIndustry(biz.industry);
+                }
+                if (biz.notification_email) document.getElementById('notification_email').value = biz.notification_email;
+            }
+
+            document.getElementById('industry').addEventListener('change', (e) => {
+                updateServicesForIndustry(e.target.value);
+            });
+
+            // Initialize option cards
+            initOptionCards();
+            initRadioCards();
+            initVoiceCards();
+            initEmergencyToggle();
+        }
+
+        function updateServicesForIndustry(industry) {
+            const services = industryServices[industry] || industryServices.default;
+            const container = document.getElementById('serviceCheckboxes');
+            container.innerHTML = services.map(service => `
+                <label class="option-card">
+                    <input type="checkbox" value="${service}" class="service-checkbox">
+                    <div class="option-card-content">
+                        <div class="option-checkbox">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                        </div>
+                        <span class="option-label">${service}</span>
+                    </div>
+                </label>
+            `).join('');
+            initOptionCards();
+        }
+
+        function initOptionCards() {
+            document.querySelectorAll('.option-card').forEach(card => {
+                const checkbox = card.querySelector('input[type="checkbox"]');
+                if (checkbox) {
+                    card.classList.toggle('selected', checkbox.checked);
+                    card.addEventListener('click', (e) => {
+                        if (e.target.tagName !== 'INPUT') {
+                            checkbox.checked = !checkbox.checked;
+                        }
+                        card.classList.toggle('selected', checkbox.checked);
+                    });
+                }
+            });
+        }
+
+        function initRadioCards() {
+            document.querySelectorAll('.radio-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    document.querySelectorAll('.radio-card').forEach(c => c.classList.remove('selected'));
+                    card.classList.add('selected');
+                    card.querySelector('input').checked = true;
+
+                    const mode = card.dataset.mode;
+                    document.getElementById('forwardingOptions').style.display = mode === 'forwarding' ? 'block' : 'none';
+                });
+            });
+        }
+
+        function initVoiceCards() {
+            document.querySelectorAll('.voice-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    document.querySelectorAll('.voice-card').forEach(c => c.classList.remove('selected'));
+                    card.classList.add('selected');
+                    card.querySelector('input').checked = true;
+                });
+            });
+        }
+
+        function initEmergencyToggle() {
+            document.getElementById('emergency_dispatch').addEventListener('change', (e) => {
+                document.getElementById('emergencyFields').classList.toggle('visible', e.target.checked);
+            });
+        }
+
+        function showStep(step) {
+            document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
+            document.querySelector(`.step-content[data-step="${step}"]`).classList.add('active');
+
+            const progress = (step / totalSteps) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            document.getElementById('progressText').textContent = `Step ${step} of ${totalSteps}`;
+            document.getElementById('progressPercent').textContent = Math.round(progress) + '%';
+
+            document.querySelectorAll('.step-label').forEach(el => {
+                const s = parseInt(el.dataset.step);
+                const circle = el.querySelector('.step-circle');
+                const name = el.querySelector('.step-name');
+
+                circle.classList.remove('active', 'completed', 'pending');
+                name.classList.remove('active');
+
+                if (s < step) {
+                    circle.classList.add('completed');
+                    circle.innerHTML = '<svg width="16" height="16" fill="none" stroke="white" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>';
+                } else if (s === step) {
+                    circle.classList.add('active');
+                    circle.textContent = s;
+                    name.classList.add('active');
+                } else {
+                    circle.classList.add('pending');
+                    circle.textContent = s;
+                }
+            });
+
+            document.getElementById('prevBtn').style.visibility = step === 1 ? 'hidden' : 'visible';
+
+            const nextBtn = document.getElementById('nextBtn');
+            if (step === totalSteps) {
+                nextBtn.innerHTML = 'Launch my AI agent <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>';
+                nextBtn.classList.remove('btn-primary');
+                nextBtn.classList.add('btn-success');
+                updateSummary();
+            } else {
+                nextBtn.innerHTML = 'Continue <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>';
+                nextBtn.classList.remove('btn-success');
+                nextBtn.classList.add('btn-primary');
+            }
+        }
+
+        function collectStepData(step) {
+            const data = {};
+            if (step === 1) {
+                data.name = document.getElementById('name').value;
+                data.industry = document.getElementById('industry').value;
+                data.phone = document.getElementById('phone').value;
+                data.service_area = document.getElementById('service_area').value;
+            } else if (step === 2) {
+                const selectedServices = Array.from(document.querySelectorAll('.service-checkbox:checked')).map(cb => cb.value);
+                const otherServices = document.getElementById('other_services').value;
+                if (otherServices) {
+                    selectedServices.push(...otherServices.split(',').map(s => s.trim()).filter(s => s));
+                }
+                data.services = selectedServices.join(', ');
+                const weekday = document.getElementById('hours_weekday').value;
+                const weekend = document.getElementById('hours_weekend').value;
+                data.business_hours = `Monday-Friday: ${weekday}, Saturday-Sunday: ${weekend}`;
+            } else if (step === 3) {
+                data.call_mode = document.querySelector('input[name="call_mode"]:checked').value;
+                data.rings_before_ai = parseInt(document.getElementById('rings_before_ai').value);
+                data.emergency_dispatch = document.getElementById('emergency_dispatch').checked;
+                if (data.emergency_dispatch) {
+                    data.oncall_phones = document.getElementById('oncall_phones').value;
+                    data.emergency_keywords = document.getElementById('emergency_keywords').value;
+                }
+            } else if (step === 4) {
+                data.agent_name = document.getElementById('agent_name').value;
+                data.agent_voice = document.querySelector('input[name="agent_voice"]:checked').value;
+                data.appointment_types = Array.from(document.querySelectorAll('.appointment-type:checked')).map(cb => cb.value);
+            } else if (step === 5) {
+                data.notification_email = document.getElementById('notification_email').value;
+                data.notification_phone = document.getElementById('notification_phone').value;
+            }
+            return data;
+        }
+
+        async function saveStep(step) {
+            const data = collectStepData(step);
+            Object.assign(formData, data);
+            try {
+                const response = await fetch(`/api/onboarding/${businessId}/step`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ step, data })
+                });
+                return response.ok;
+            } catch (e) {
+                console.error('Save error:', e);
+                return false;
+            }
+        }
+
+        async function completeOnboarding() {
+            document.getElementById('loadingModal').classList.add('visible');
+            try {
+                const response = await fetch(`/api/onboarding/${businessId}/complete`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                const data = await response.json();
+                if (data.success) {
+                    window.location.href = data.redirect || '/dashboard.html';
+                } else {
+                    alert('Error creating agent: ' + (data.error || 'Unknown error'));
+                    document.getElementById('loadingModal').classList.remove('visible');
+                }
+            } catch (e) {
+                alert('Error: ' + e.message);
+                document.getElementById('loadingModal').classList.remove('visible');
+            }
+        }
+
+        function updateSummary() {
+            const industrySelect = document.getElementById('industry');
+            const industryText = industrySelect.options[industrySelect.selectedIndex]?.text || formData.industry || 'Not set';
+            const appointmentTypes = formData.appointment_types || [];
+            const callModeText = formData.call_mode === 'takeover' ? 'Full Takeover' : 'Call Forwarding';
+
+            document.getElementById('summary').innerHTML = `
+                <div class="summary-item"><span class="summary-label">Business</span><span class="summary-value">${formData.name || 'Not set'}</span></div>
+                <div class="summary-item"><span class="summary-label">Industry</span><span class="summary-value">${industryText}</span></div>
+                <div class="summary-item"><span class="summary-label">AI Agent</span><span class="summary-value">${formData.agent_name || 'Alex'} (${formData.agent_voice || 'Rachel'})</span></div>
+                <div class="summary-item"><span class="summary-label">Call Mode</span><span class="summary-value">${callModeText}</span></div>
+                <div class="summary-item"><span class="summary-label">Services</span><span class="summary-value">${formData.services ? formData.services.split(',').length + ' selected' : 'None'}</span></div>
+                <div class="summary-item"><span class="summary-label">Appointment types</span><span class="summary-value">${appointmentTypes.length} enabled</span></div>
+                <div class="summary-item"><span class="summary-label">Emergency dispatch</span><span class="summary-value">${formData.emergency_dispatch ? 'Enabled' : 'Off'}</span></div>
+            `;
+        }
+
+        document.getElementById('nextBtn').addEventListener('click', async () => {
+            await saveStep(currentStep);
+            if (currentStep === totalSteps) {
+                await completeOnboarding();
+            } else {
+                currentStep++;
+                showStep(currentStep);
+            }
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        });
+
+        init();
+        showStep(1);
+    </script>
+</body>
+</html>

@@ -1,0 +1,1980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CallAlly | Stop Losing Customers to Voicemail</title>
+    <meta name="description" content="AI answers your business calls 24/7. Books appointments, captures leads, sounds human. Built for contractors and service businesses.">
+    <link rel="canonical" href="https://callallynow.com">
+
+    <meta property="og:title" content="Stop Losing Customers to Voicemail | CallAlly">
+    <meta property="og:description" content="AI that answers your calls and books jobs while you work. 7-day free trial.">
+    <meta property="og:type" content="website">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+
+    <style>
+        /*
+         * Color Philosophy:
+         * - Warm slate for trust and professionalism
+         * - Amber/orange for action and urgency (contractor colors)
+         * - Cream backgrounds for warmth (not cold white)
+         * - Teal accents for success states
+         */
+        :root {
+            --slate-900: #0f172a;
+            --slate-800: #1e293b;
+            --slate-700: #334155;
+            --slate-600: #475569;
+            --slate-500: #64748b;
+            --slate-400: #94a3b8;
+            --slate-200: #e2e8f0;
+            --slate-100: #f1f5f9;
+
+            --amber-500: #f59e0b;
+            --amber-600: #d97706;
+            --amber-400: #fbbf24;
+            --amber-100: #fef3c7;
+            --amber-50: #fffbeb;
+
+            --teal-600: #0d9488;
+            --teal-500: #14b8a6;
+            --teal-100: #ccfbf1;
+
+            --red-600: #dc2626;
+            --red-100: #fee2e2;
+
+            --cream: #faf7f5;
+            --cream-dark: #f5f0eb;
+            --white: #ffffff;
+
+            --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-serif: 'DM Serif Display', Georgia, serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-sans);
+            color: var(--slate-700);
+            line-height: 1.6;
+            background: var(--cream);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Utility */
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Typography with character */
+        h1, h2, h3 {
+            color: var(--slate-900);
+            line-height: 1.15;
+        }
+
+        h1 {
+            font-family: var(--font-serif);
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 400;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 400;
+        }
+
+        h3 {
+            font-family: var(--font-sans);
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        /* ============================================
+           NAVIGATION - Minimal, warm
+           ============================================ */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(250, 247, 245, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--slate-900);
+        }
+
+        .logo-mark {
+            width: 38px;
+            height: 38px;
+            background: var(--slate-900);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-mark svg {
+            width: 20px;
+            height: 20px;
+            color: var(--amber-400);
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 1.125rem;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: none;
+            gap: 36px;
+        }
+
+        @media (min-width: 768px) {
+            .nav-links { display: flex; }
+        }
+
+        .nav-links a {
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: var(--slate-600);
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+
+        .nav-links a:hover {
+            color: var(--slate-900);
+        }
+
+        .nav-cta {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        /* Buttons with personality */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 22px;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            font-family: var(--font-sans);
+            text-decoration: none;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .btn-primary {
+            background: var(--slate-900);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--slate-800);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+        }
+
+        .btn-amber {
+            background: var(--amber-500);
+            color: var(--slate-900);
+        }
+
+        .btn-amber:hover {
+            background: var(--amber-600);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--slate-600);
+        }
+
+        .btn-ghost:hover {
+            color: var(--slate-900);
+            background: rgba(0,0,0,0.04);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--slate-900);
+            border: 2px solid var(--slate-200);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--slate-900);
+            background: var(--slate-900);
+            color: var(--white);
+        }
+
+        .btn-lg {
+            padding: 16px 28px;
+            font-size: 1rem;
+        }
+
+        /* Mobile menu */
+        .mobile-toggle {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding: 8px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .mobile-toggle span {
+            width: 22px;
+            height: 2px;
+            background: var(--slate-800);
+            border-radius: 1px;
+        }
+
+        @media (min-width: 768px) {
+            .mobile-toggle { display: none; }
+        }
+
+        /* ============================================
+           HERO - Warm, confident, pain-focused
+           ============================================ */
+        .hero {
+            padding: 130px 0 80px;
+            background: var(--cream);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle texture */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: radial-gradient(circle at 1px 1px, var(--slate-200) 1px, transparent 0);
+            background-size: 40px 40px;
+            opacity: 0.3;
+        }
+
+        .hero-inner {
+            position: relative;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        @media (min-width: 1024px) {
+            .hero-inner {
+                grid-template-columns: 1.15fr 1fr;
+                gap: 64px;
+            }
+        }
+
+        .hero-content {
+            text-align: center;
+        }
+
+        @media (min-width: 1024px) {
+            .hero-content { text-align: left; }
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--amber-100);
+            border-radius: 100px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--amber-600);
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            margin-bottom: 24px;
+        }
+
+        .hero h1 .accent {
+            color: var(--amber-600);
+        }
+
+        .hero-text {
+            font-size: 1.125rem;
+            color: var(--slate-600);
+            margin-bottom: 32px;
+            max-width: 520px;
+            line-height: 1.7;
+        }
+
+        @media (min-width: 1024px) {
+            .hero-text { font-size: 1.1875rem; }
+        }
+
+        .hero-cta {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        @media (min-width: 480px) {
+            .hero-cta {
+                flex-direction: row;
+                justify-content: center;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hero-cta { justify-content: flex-start; }
+        }
+
+        .hero-note {
+            font-size: 0.875rem;
+            color: var(--slate-500);
+        }
+
+        .hero-note strong {
+            color: var(--slate-700);
+        }
+
+        /* Demo visualization */
+        .demo-visual {
+            position: relative;
+        }
+
+        .demo-card {
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow:
+                0 1px 3px rgba(0,0,0,0.04),
+                0 8px 32px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .demo-header {
+            padding: 16px 20px;
+            background: var(--slate-900);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .demo-header-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .demo-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .demo-title {
+            color: var(--slate-400);
+            font-size: 0.8125rem;
+            font-weight: 500;
+            margin-left: 8px;
+        }
+
+        .demo-live {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            background: rgba(20, 184, 166, 0.15);
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--teal-500);
+        }
+
+        .demo-live-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--teal-500);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .demo-body {
+            padding: 24px;
+        }
+
+        .demo-messages {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .demo-msg {
+            display: flex;
+            gap: 12px;
+        }
+
+        .demo-msg.from-ai {
+            flex-direction: row-reverse;
+        }
+
+        .demo-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .demo-avatar.caller {
+            background: var(--slate-100);
+            color: var(--slate-600);
+        }
+
+        .demo-avatar.ai {
+            background: var(--amber-100);
+            color: var(--amber-600);
+        }
+
+        .demo-bubble {
+            max-width: 280px;
+            padding: 12px 16px;
+            border-radius: 16px;
+            font-size: 0.9375rem;
+            line-height: 1.5;
+        }
+
+        .demo-msg:not(.from-ai) .demo-bubble {
+            background: var(--slate-100);
+            color: var(--slate-700);
+            border-bottom-left-radius: 4px;
+        }
+
+        .demo-msg.from-ai .demo-bubble {
+            background: var(--slate-900);
+            color: var(--white);
+            border-bottom-right-radius: 4px;
+        }
+
+        .demo-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--slate-100);
+            margin-top: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .demo-stat {
+            background: var(--white);
+            padding: 16px;
+            text-align: center;
+        }
+
+        .demo-stat-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--slate-900);
+        }
+
+        .demo-stat-label {
+            font-size: 0.75rem;
+            color: var(--slate-500);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Floating badge */
+        .demo-badge {
+            position: absolute;
+            top: -12px;
+            right: 24px;
+            background: var(--teal-600);
+            color: var(--white);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3);
+        }
+
+        /* ============================================
+           PROBLEM SECTION - Visual storytelling
+           ============================================ */
+        .problem {
+            padding: 100px 0;
+            background: var(--white);
+        }
+
+        .problem-header {
+            text-align: center;
+            max-width: 680px;
+            margin: 0 auto 60px;
+        }
+
+        .problem-header p {
+            margin-top: 20px;
+            font-size: 1.125rem;
+            color: var(--slate-600);
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
+        @media (min-width: 768px) {
+            .problem-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .problem-card {
+            background: var(--cream);
+            border-radius: 16px;
+            padding: 32px 28px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .problem-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--red-600);
+        }
+
+        .problem-icon {
+            width: 52px;
+            height: 52px;
+            background: var(--red-100);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .problem-icon svg {
+            width: 26px;
+            height: 26px;
+            color: var(--red-600);
+        }
+
+        .problem-card h3 {
+            margin-bottom: 12px;
+            color: var(--slate-900);
+        }
+
+        .problem-card p {
+            font-size: 0.9375rem;
+            color: var(--slate-600);
+            margin-bottom: 16px;
+        }
+
+        .problem-stat {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--red-600);
+            font-family: var(--font-serif);
+        }
+
+        /* ============================================
+           ROI CALCULATOR - Interactive, honest
+           ============================================ */
+        .calculator {
+            padding: 100px 0;
+            background: var(--slate-900);
+            position: relative;
+        }
+
+        .calculator::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.03) 1px, transparent 0);
+            background-size: 32px 32px;
+        }
+
+        .calculator-inner {
+            position: relative;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        @media (min-width: 1024px) {
+            .calculator-inner {
+                grid-template-columns: 1fr 1.1fr;
+            }
+        }
+
+        .calculator-content h2 {
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+
+        .calculator-content p {
+            color: var(--slate-400);
+            font-size: 1.0625rem;
+            line-height: 1.7;
+        }
+
+        .calculator-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 36px;
+        }
+
+        .calc-row {
+            margin-bottom: 28px;
+        }
+
+        .calc-row:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .calc-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .calc-label span:first-child {
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: var(--slate-700);
+        }
+
+        .calc-value {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--amber-600);
+        }
+
+        .calc-slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: var(--slate-100);
+            outline: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+        }
+
+        .calc-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--slate-900);
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            transition: transform 0.1s;
+        }
+
+        .calc-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+
+        .calc-slider::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--slate-900);
+            cursor: pointer;
+            border: none;
+        }
+
+        .calc-result {
+            background: var(--amber-50);
+            border: 2px solid var(--amber-100);
+            border-radius: 16px;
+            padding: 28px;
+            text-align: center;
+            margin-top: 28px;
+        }
+
+        .calc-result-label {
+            font-size: 0.875rem;
+            color: var(--slate-600);
+            margin-bottom: 4px;
+        }
+
+        .calc-result-value {
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            color: var(--amber-600);
+            line-height: 1;
+        }
+
+        .calc-result-note {
+            font-size: 0.8125rem;
+            color: var(--slate-500);
+            margin-top: 8px;
+        }
+
+        /* ============================================
+           WHY SECTION - Honest, no fake testimonials
+           ============================================ */
+        .why {
+            padding: 100px 0;
+            background: var(--cream);
+        }
+
+        .why-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 60px;
+        }
+
+        .why-header p {
+            margin-top: 16px;
+            color: var(--slate-600);
+            font-size: 1.0625rem;
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .why-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .why-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 32px;
+            display: flex;
+            gap: 20px;
+            transition: box-shadow 0.2s;
+        }
+
+        .why-card:hover {
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+        }
+
+        .why-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--amber-100);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .why-icon svg {
+            width: 24px;
+            height: 24px;
+            color: var(--amber-600);
+        }
+
+        .why-card h3 {
+            margin-bottom: 8px;
+        }
+
+        .why-card p {
+            font-size: 0.9375rem;
+            color: var(--slate-600);
+            line-height: 1.6;
+        }
+
+        /* ============================================
+           OBJECTION - Direct, honest
+           ============================================ */
+        .objection {
+            padding: 100px 0;
+            background: var(--white);
+        }
+
+        .objection-inner {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        @media (min-width: 1024px) {
+            .objection-inner {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .objection-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: var(--slate-100);
+            border-radius: 100px;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--slate-600);
+            margin-bottom: 20px;
+        }
+
+        .objection h2 {
+            margin-bottom: 24px;
+        }
+
+        .objection-text {
+            font-size: 1.0625rem;
+            color: var(--slate-600);
+            line-height: 1.7;
+            margin-bottom: 28px;
+        }
+
+        .objection-points {
+            list-style: none;
+        }
+
+        .objection-points li {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--slate-100);
+        }
+
+        .objection-points li:last-child {
+            border-bottom: none;
+        }
+
+        .objection-check {
+            width: 24px;
+            height: 24px;
+            background: var(--teal-100);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .objection-check svg {
+            width: 14px;
+            height: 14px;
+            color: var(--teal-600);
+        }
+
+        .objection-points li span {
+            font-size: 0.9375rem;
+            color: var(--slate-700);
+        }
+
+        .objection-points li strong {
+            color: var(--slate-900);
+        }
+
+        .objection-demo {
+            background: var(--cream);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .objection-demo-icon {
+            width: 72px;
+            height: 72px;
+            background: var(--slate-900);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+        }
+
+        .objection-demo-icon svg {
+            width: 32px;
+            height: 32px;
+            color: var(--amber-400);
+        }
+
+        .objection-demo h3 {
+            margin-bottom: 12px;
+        }
+
+        .objection-demo p {
+            font-size: 0.9375rem;
+            color: var(--slate-600);
+            margin-bottom: 24px;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ============================================
+           HOW IT WORKS
+           ============================================ */
+        .how {
+            padding: 100px 0;
+            background: var(--cream);
+        }
+
+        .how-header {
+            text-align: center;
+            max-width: 500px;
+            margin: 0 auto 60px;
+        }
+
+        .how-header p {
+            margin-top: 16px;
+            color: var(--slate-600);
+            font-size: 1.0625rem;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            .steps {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 40px;
+            }
+        }
+
+        .step {
+            text-align: center;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--slate-900);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--amber-400);
+        }
+
+        .step h3 {
+            margin-bottom: 12px;
+        }
+
+        .step p {
+            font-size: 0.9375rem;
+            color: var(--slate-600);
+            max-width: 260px;
+            margin: 0 auto;
+        }
+
+        .step-time {
+            display: inline-block;
+            margin-top: 16px;
+            padding: 6px 14px;
+            background: var(--teal-100);
+            color: var(--teal-600);
+            font-size: 0.8125rem;
+            font-weight: 600;
+            border-radius: 100px;
+        }
+
+        /* ============================================
+           PRICING - Clear, honest
+           ============================================ */
+        .pricing {
+            padding: 100px 0;
+            background: var(--white);
+        }
+
+        .pricing-header {
+            text-align: center;
+            max-width: 500px;
+            margin: 0 auto 60px;
+        }
+
+        .pricing-header p {
+            margin-top: 16px;
+            color: var(--slate-600);
+            font-size: 1.0625rem;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            .pricing-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .pricing-card {
+            background: var(--cream);
+            border-radius: 20px;
+            padding: 36px 32px;
+            position: relative;
+        }
+
+        .pricing-card.featured {
+            background: var(--slate-900);
+        }
+
+        .pricing-card.featured * {
+            color: var(--white);
+        }
+
+        .pricing-card.featured .pricing-desc {
+            color: var(--slate-400);
+        }
+
+        .pricing-card.featured .pricing-features li {
+            color: var(--slate-300);
+            border-color: var(--slate-700);
+        }
+
+        .pricing-card.featured .btn {
+            background: var(--amber-500);
+            color: var(--slate-900);
+        }
+
+        .pricing-card.featured .btn:hover {
+            background: var(--amber-400);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--amber-500);
+            color: var(--slate-900);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .pricing-name {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .pricing-price {
+            font-family: var(--font-serif);
+            font-size: 2.75rem;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .pricing-price span {
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--slate-500);
+        }
+
+        .pricing-desc {
+            font-size: 0.875rem;
+            color: var(--slate-600);
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--slate-200);
+            margin-bottom: 24px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 28px;
+        }
+
+        .pricing-features li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            font-size: 0.9375rem;
+            color: var(--slate-700);
+            border-bottom: 1px solid var(--slate-100);
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features svg {
+            width: 18px;
+            height: 18px;
+            color: var(--teal-600);
+            flex-shrink: 0;
+        }
+
+        .pricing-card .btn {
+            width: 100%;
+        }
+
+        .pricing-guarantee {
+            text-align: center;
+            margin-top: 48px;
+            padding: 28px;
+            background: var(--teal-100);
+            border-radius: 16px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .pricing-guarantee p {
+            font-size: 0.9375rem;
+            color: var(--teal-600);
+        }
+
+        .pricing-guarantee strong {
+            display: block;
+            font-size: 1rem;
+            color: var(--slate-900);
+            margin-bottom: 4px;
+        }
+
+        /* ============================================
+           FAQ
+           ============================================ */
+        .faq {
+            padding: 100px 0;
+            background: var(--cream);
+        }
+
+        .faq-header {
+            text-align: center;
+            max-width: 500px;
+            margin: 0 auto 60px;
+        }
+
+        .faq-grid {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--slate-200);
+        }
+
+        .faq-question {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px 0;
+            cursor: pointer;
+            font-size: 1.0625rem;
+            font-weight: 600;
+            color: var(--slate-900);
+            transition: color 0.15s;
+        }
+
+        .faq-question:hover {
+            color: var(--amber-600);
+        }
+
+        .faq-question svg {
+            width: 20px;
+            height: 20px;
+            color: var(--slate-400);
+            transition: transform 0.2s;
+            flex-shrink: 0;
+            margin-left: 16px;
+        }
+
+        .faq-item.open .faq-question svg {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            display: none;
+            padding-bottom: 24px;
+            font-size: 0.9375rem;
+            color: var(--slate-600);
+            line-height: 1.7;
+        }
+
+        .faq-item.open .faq-answer {
+            display: block;
+        }
+
+        /* ============================================
+           FINAL CTA
+           ============================================ */
+        .final-cta {
+            padding: 100px 0;
+            background: var(--slate-900);
+            text-align: center;
+            position: relative;
+        }
+
+        .final-cta::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.03) 1px, transparent 0);
+            background-size: 32px 32px;
+        }
+
+        .final-cta-inner {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .final-cta h2 {
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+
+        .final-cta p {
+            color: var(--slate-400);
+            font-size: 1.0625rem;
+            margin-bottom: 32px;
+        }
+
+        .final-cta .btn-amber {
+            font-size: 1.0625rem;
+            padding: 18px 36px;
+        }
+
+        .final-cta-note {
+            margin-top: 20px;
+            font-size: 0.875rem;
+            color: var(--slate-500);
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer {
+            padding: 60px 0 30px;
+            background: var(--slate-900);
+            border-top: 1px solid var(--slate-800);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr repeat(3, 1fr);
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 32px;
+            }
+        }
+
+        .footer-brand p {
+            color: var(--slate-500);
+            font-size: 0.875rem;
+            margin-top: 16px;
+            max-width: 280px;
+        }
+
+        .footer-col h4 {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--white);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col a {
+            font-size: 0.875rem;
+            color: var(--slate-500);
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+
+        .footer-col a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            padding-top: 24px;
+            border-top: 1px solid var(--slate-800);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-bottom p {
+            font-size: 0.8125rem;
+            color: var(--slate-500);
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-legal a {
+            font-size: 0.8125rem;
+            color: var(--slate-500);
+            text-decoration: none;
+        }
+
+        .footer-legal a:hover {
+            color: var(--white);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container nav-inner">
+            <a href="/" class="logo">
+                <div class="logo-mark">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                    </svg>
+                </div>
+                <span class="logo-text">CallAlly</span>
+            </a>
+            <div class="nav-links">
+                <a href="#calculator">Calculator</a>
+                <a href="#how">How It Works</a>
+                <a href="#pricing">Pricing</a>
+            </div>
+            <div class="nav-cta">
+                <a href="/login.html" class="btn btn-ghost">Log In</a>
+                <a href="/signup.html" class="btn btn-primary">Start Trial</a>
+            </div>
+            <button class="mobile-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-inner">
+                <div class="hero-content">
+                    <div class="hero-eyebrow">
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                        </svg>
+                        62% of calls to small businesses go unanswered
+                    </div>
+                    <h1>Every missed call is a customer calling your <span class="accent">competitor</span></h1>
+                    <p class="hero-text">
+                        You can't answer the phone when you're on a job. But when that call hits voicemail, they don't leave a message—they call the next number on Google. CallAlly answers in under a second, books the appointment, and texts you the details.
+                    </p>
+                    <div class="hero-cta">
+                        <a href="/signup.html" class="btn btn-amber btn-lg">
+                            Start 7-Day Free Trial
+                            <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                            </svg>
+                        </a>
+                        <a href="#calculator" class="btn btn-outline btn-lg">See Your Lost Revenue</a>
+                    </div>
+                    <p class="hero-note">
+                        <strong>7-day free trial.</strong> Credit card required. Cancel anytime.
+                    </p>
+                </div>
+                <div class="demo-visual">
+                    <div class="demo-badge">Answering now</div>
+                    <div class="demo-card">
+                        <div class="demo-header">
+                            <div class="demo-header-left">
+                                <span class="demo-dot" style="background:#ef4444"></span>
+                                <span class="demo-dot" style="background:#fbbf24"></span>
+                                <span class="demo-dot" style="background:#22c55e"></span>
+                                <span class="demo-title">Live call transcript</span>
+                            </div>
+                            <span class="demo-live">
+                                <span class="demo-live-dot"></span>
+                                2:34
+                            </span>
+                        </div>
+                        <div class="demo-body">
+                            <div class="demo-messages">
+                                <div class="demo-msg">
+                                    <div class="demo-avatar caller">C</div>
+                                    <div class="demo-bubble">Hey, my AC stopped working and it's 95 degrees. Can someone come out today?</div>
+                                </div>
+                                <div class="demo-msg from-ai">
+                                    <div class="demo-avatar ai">AI</div>
+                                    <div class="demo-bubble">I'm so sorry—that sounds miserable. Let me get you scheduled right away. What's your name and address?</div>
+                                </div>
+                            </div>
+                            <div class="demo-stats">
+                                <div class="demo-stat">
+                                    <div class="demo-stat-value">24/7</div>
+                                    <div class="demo-stat-label">Availability</div>
+                                </div>
+                                <div class="demo-stat">
+                                    <div class="demo-stat-value">&lt;1s</div>
+                                    <div class="demo-stat-label">Answer time</div>
+                                </div>
+                                <div class="demo-stat">
+                                    <div class="demo-stat-value">100%</div>
+                                    <div class="demo-stat-label">Answered</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem -->
+    <section class="problem">
+        <div class="container">
+            <div class="problem-header">
+                <h2>The math is brutal</h2>
+                <p>Most service businesses lose $30,000–$100,000 per year to missed calls. Here's how it adds up.</p>
+            </div>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="problem-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                        </svg>
+                    </div>
+                    <h3>Calls while you're working</h3>
+                    <p>You're on a roof or under a sink. The phone rings. By the time you call back, they've already booked someone else.</p>
+                    <div class="problem-stat">8–12 missed/day</div>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <h3>After-hours emergencies</h3>
+                    <p>That burst pipe at 10pm is worth $800+. But if you don't answer, they're calling someone else by 10:02.</p>
+                    <div class="problem-stat">40% after 5pm</div>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <h3>Hiring costs a fortune</h3>
+                    <p>A receptionist costs $35–50K/year. Part-timers call in sick. Neither works weekends or holidays.</p>
+                    <div class="problem-stat">$3,500/month</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator -->
+    <section class="calculator" id="calculator">
+        <div class="container">
+            <div class="calculator-inner">
+                <div class="calculator-content">
+                    <h2>How much are you losing?</h2>
+                    <p>Adjust the sliders to match your business. Most owners are surprised—and a little angry—when they see the number.</p>
+                </div>
+                <div class="calculator-card">
+                    <div class="calc-row">
+                        <div class="calc-label">
+                            <span>Missed calls per day</span>
+                            <span class="calc-value" id="missedCallsValue">5</span>
+                        </div>
+                        <input type="range" class="calc-slider" id="missedCalls" min="1" max="20" value="5">
+                    </div>
+                    <div class="calc-row">
+                        <div class="calc-label">
+                            <span>Average job value</span>
+                            <span class="calc-value" id="jobValueValue">$350</span>
+                        </div>
+                        <input type="range" class="calc-slider" id="jobValue" min="100" max="2000" value="350" step="50">
+                    </div>
+                    <div class="calc-row">
+                        <div class="calc-label">
+                            <span>Calls that become jobs</span>
+                            <span class="calc-value" id="conversionValue">30%</span>
+                        </div>
+                        <input type="range" class="calc-slider" id="conversion" min="10" max="60" value="30">
+                    </div>
+                    <div class="calc-result">
+                        <div class="calc-result-label">You're losing approximately</div>
+                        <div class="calc-result-value" id="resultValue">$95,812</div>
+                        <div class="calc-result-note">per year to voicemail</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why -->
+    <section class="why">
+        <div class="container">
+            <div class="why-header">
+                <h2>Why businesses switch to CallAlly</h2>
+                <p>It's not about replacing humans. It's about being there when you can't be.</p>
+            </div>
+            <div class="why-grid">
+                <div class="why-card">
+                    <div class="why-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Never miss another call</h3>
+                        <p>Answers in under a second, 24/7/365. Even Christmas. Even 3am. Every call is answered by someone who knows your business.</p>
+                    </div>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Books appointments for you</h3>
+                        <p>Collects name, number, address, and what they need. Books directly into your calendar. You just show up.</p>
+                    </div>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Instant notifications</h3>
+                        <p>Get a text and email the moment a call ends. Full transcript, caller info, and what they need—respond while the lead is hot.</p>
+                    </div>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Knows your business</h3>
+                        <p>Tell it your services, hours, pricing, and service area. It answers questions accurately—just like your best employee would.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Objection -->
+    <section class="objection">
+        <div class="container">
+            <div class="objection-inner">
+                <div>
+                    <div class="objection-eyebrow">
+                        <svg width="14" height="14" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/>
+                        </svg>
+                        The question everyone asks
+                    </div>
+                    <h2>"Will my customers know it's AI?"</h2>
+                    <p class="objection-text">
+                        Here's the honest answer: CallAlly sounds remarkably human. Natural pauses. Empathetic responses. Handles interruptions smoothly. Most callers genuinely don't realize they're talking to AI.
+                    </p>
+                    <p class="objection-text">
+                        But here's the thing—even if they do notice, they'd rather talk to a helpful AI than get sent to voicemail. The goal isn't to fool anyone. It's to help everyone.
+                    </p>
+                    <ul class="objection-points">
+                        <li>
+                            <div class="objection-check">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            </div>
+                            <span><strong>Natural conversation</strong>—handles "ums," interruptions, and topic changes</span>
+                        </li>
+                        <li>
+                            <div class="objection-check">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            </div>
+                            <span><strong>Empathy built in</strong>—"I'm so sorry your AC is out" vs. robotic scripts</span>
+                        </li>
+                        <li>
+                            <div class="objection-check">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            </div>
+                            <span><strong>Trained on your business</strong>—knows your services, prices, and schedule</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="objection-demo">
+                    <div class="objection-demo-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                        </svg>
+                    </div>
+                    <h3>Try it yourself</h3>
+                    <p>Start your free trial and call your own CallAlly. See if you can tell the difference.</p>
+                    <a href="/signup.html" class="btn btn-primary">Start Free Trial</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How -->
+    <section class="how" id="how">
+        <div class="container">
+            <div class="how-header">
+                <h2>Live in 10 minutes</h2>
+                <p>No IT department. No complicated setup. If you can fill out a form, you can do this.</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Tell us about your business</h3>
+                    <p>Name, services, hours, service area. Takes about 5 minutes to complete.</p>
+                    <span class="step-time">5 min</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Set up call forwarding</h3>
+                    <p>Forward when you're busy, or forward everything. We'll walk you through it.</p>
+                    <span class="step-time">3 min</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Start capturing leads</h3>
+                    <p>Your AI answers calls, books appointments, and texts you the details.</p>
+                    <span class="step-time">Done</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="pricing-header">
+                <h2>Simple, honest pricing</h2>
+                <p>One captured job pays for months of service. All plans include a 7-day free trial.</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-name">Starter</div>
+                    <div class="pricing-price">$49<span>/mo</span></div>
+                    <p class="pricing-desc">100 minutes included. Great for getting started.</p>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            24/7 call answering
+                        </li>
+                        <li>
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            Appointment booking
+                        </li>
+                        <li>
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            Email notifications
+                        </li>
+                        <li>
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            Call recordings
+                        </li>
+                    </ul>
+                    <a href="/signup.html?plan=starter" class="btn btn-outline">Start Free Trial</a>
+                </div>
+                <div class="pricing-card featured">
+                    <div class="pricing-badge">Most Popular</div>
+                    <div class="pricing-name">Professional</div>
+                    <div class="pricing-price">$99<span>/mo</span></div>
+                    <p class="pricing-desc">300 minutes included. Best for most businesses.</p>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            Everything in Starter
+                        </li>
+                        <li>
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            SMS notifications
+                        </li>
+                        <li>
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            Emergency dispatch
+                        </li>
+                        <li>
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            Priority support
+                        </li>
+                    </ul>
+                    <a href="/signup.html?plan=professional" class="btn">Start Free Trial</a>
+                </div>
+                <div class="pricing-card">
+                    <div class="pricing-name">Business</div>
+                    <div class="pricing-price">$199<span>/mo</span></div>
+                    <p class="pricing-desc">1,000 minutes included. For high-volume shops.</p>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            Everything in Professional
+                        </li>
+                        <li>
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            Multiple phone numbers
+                        </li>
+                        <li>
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            CRM integrations
+                        </li>
+                        <li>
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            Dedicated account manager
+                        </li>
+                    </ul>
+                    <a href="/signup.html?plan=business" class="btn btn-outline">Start Free Trial</a>
+                </div>
+            </div>
+            <div class="pricing-guarantee">
+                <p><strong>30-day money-back guarantee</strong><br>If CallAlly doesn't pay for itself in the first month, we'll refund every penny. No questions.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+        <div class="container">
+            <div class="faq-header">
+                <h2>Questions</h2>
+            </div>
+            <div class="faq-grid">
+                <div class="faq-item open">
+                    <div class="faq-question">
+                        Do I need to change my phone number?
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                    </div>
+                    <div class="faq-answer">No. You keep your existing number. Just set up call forwarding when you can't answer—or forward all calls to your CallAlly number. Your customers call the same number they always have.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What if the AI can't answer a question?
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                    </div>
+                    <div class="faq-answer">It takes a detailed message with their name, number, and what they need. You get notified instantly so you can call back. No lead falls through the cracks.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Can it book appointments in my calendar?
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                    </div>
+                    <div class="faq-answer">Yes. CallAlly integrates with Google Calendar, Outlook, and most scheduling tools. Appointments show up automatically—you just show up to the job.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How long does setup really take?
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                    </div>
+                    <div class="faq-answer">Most people are live in under 10 minutes. You answer questions about your business, test it with a call to yourself, and you're done. No technical skills needed.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Is there a contract?
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                    </div>
+                    <div class="faq-answer">No contracts. Pay month-to-month and cancel anytime from your dashboard. We also offer annual plans with 20% off if you want to save.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What happens if I go over my minutes?
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                    </div>
+                    <div class="faq-answer">We'll notify you at 80% so there are no surprises. Extra minutes are billed at a fair per-minute rate, or you can upgrade anytime. Your AI never stops answering.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta">
+        <div class="container">
+            <div class="final-cta-inner">
+                <h2>That next missed call could be your best customer</h2>
+                <p>Start your 7-day free trial. Set up in 10 minutes. Cancel anytime.</p>
+                <a href="/signup.html" class="btn btn-amber">
+                    Start Free Trial
+                    <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                    </svg>
+                </a>
+                <p class="final-cta-note">Credit card required. 30-day money-back guarantee.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="/" class="logo" style="color: var(--white);">
+                        <div class="logo-mark">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                            </svg>
+                        </div>
+                        <span class="logo-text">CallAlly</span>
+                    </a>
+                    <p>AI-powered call answering for service businesses. Never miss a call, never lose a customer.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="#how">How It Works</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Industries</h4>
+                    <ul>
+                        <li><a href="#">HVAC</a></li>
+                        <li><a href="#">Plumbing</a></li>
+                        <li><a href="#">Electrical</a></li>
+                        <li><a href="#">Dental</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="tel:+16502015786">(650) 201-5786</a></li>
+                        <li><a href="mailto:support@callallynow.com">support@callallynow.com</a></li>
+                        <li><a href="#">Help Center</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 CallAlly. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="/privacy.html">Privacy</a>
+                    <a href="/terms.html">Terms</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Calculator
+        const missedCalls = document.getElementById('missedCalls');
+        const jobValue = document.getElementById('jobValue');
+        const conversion = document.getElementById('conversion');
+        const missedCallsValue = document.getElementById('missedCallsValue');
+        const jobValueValue = document.getElementById('jobValueValue');
+        const conversionValue = document.getElementById('conversionValue');
+        const resultValue = document.getElementById('resultValue');
+
+        function updateCalc() {
+            const calls = parseInt(missedCalls.value);
+            const job = parseInt(jobValue.value);
+            const conv = parseInt(conversion.value) / 100;
+
+            missedCallsValue.textContent = calls;
+            jobValueValue.textContent = '$' + job.toLocaleString();
+            conversionValue.textContent = conversion.value + '%';
+
+            const annual = Math.round(calls * 365 * job * conv);
+            resultValue.textContent = '$' + annual.toLocaleString();
+        }
+
+        missedCalls.addEventListener('input', updateCalc);
+        jobValue.addEventListener('input', updateCalc);
+        conversion.addEventListener('input', updateCalc);
+        updateCalc();
+
+        // FAQ
+        document.querySelectorAll('.faq-question').forEach(q => {
+            q.addEventListener('click', () => {
+                const item = q.parentElement;
+                const wasOpen = item.classList.contains('open');
+                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+                if (!wasOpen) item.classList.add('open');
+            });
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(a.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+</body>
+</html>

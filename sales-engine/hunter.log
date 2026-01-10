@@ -1,0 +1,9 @@
+[2026-01-09 21:18:32] ============================================================
+[2026-01-09 21:18:32] CALLALLY CONTINUOUS HUNTER STARTED
+[2026-01-09 21:18:32] ============================================================
+[2026-01-09 21:18:32] Running initial campaign...
+[2026-01-09 21:18:32] Starting morning email campaign...
+[2026-01-09 21:18:32] Error in morning emails: 'NoneType' object has no attribute 'get'
+[2026-01-09 21:18:32] Pipeline: 15 leads, 0.0% conversion
+[2026-01-09 21:18:32] Scheduler started. Running every scheduled time.
+[2026-01-09 21:18:32] Press Ctrl+C to stop.

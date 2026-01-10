@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start Free Trial | CallAlly</title>
+    <meta name="description" content="Create your CallAlly account and start answering every call 24/7. 7-day free trial.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --slate-900: #0f172a;
+            --slate-800: #1e293b;
+            --slate-700: #334155;
+            --slate-600: #475569;
+            --slate-500: #64748b;
+            --slate-400: #94a3b8;
+            --slate-200: #e2e8f0;
+            --slate-100: #f1f5f9;
+            --amber-500: #f59e0b;
+            --amber-600: #d97706;
+            --amber-400: #fbbf24;
+            --amber-100: #fef3c7;
+            --amber-50: #fffbeb;
+            --teal-600: #0d9488;
+            --teal-500: #14b8a6;
+            --teal-100: #ccfbf1;
+            --red-600: #dc2626;
+            --red-100: #fee2e2;
+            --cream: #faf7f5;
+            --white: #ffffff;
+            --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-serif: 'DM Serif Display', Georgia, serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-sans);
+            color: var(--slate-700);
+            line-height: 1.6;
+            background: var(--cream);
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--white);
+            border-bottom: 1px solid var(--slate-200);
+            padding: 0 20px;
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--slate-900);
+        }
+
+        .logo-mark {
+            width: 36px;
+            height: 36px;
+            background: var(--slate-900);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-mark svg {
+            width: 18px;
+            height: 18px;
+            color: var(--amber-400);
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 1.0625rem;
+        }
+
+        .nav-link {
+            font-size: 0.875rem;
+            color: var(--slate-600);
+            text-decoration: none;
+        }
+
+        .nav-link strong {
+            color: var(--slate-900);
+            font-weight: 600;
+        }
+
+        /* Main Layout */
+        .main {
+            display: flex;
+            min-height: calc(100vh - 64px);
+            min-height: calc(100dvh - 64px);
+        }
+
+        /* Form Side */
+        .form-side {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 32px 20px;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .form-title {
+            font-family: var(--font-serif);
+            font-size: 1.75rem;
+            font-weight: 400;
+            color: var(--slate-900);
+            margin-bottom: 8px;
+        }
+
+        .form-subtitle {
+            font-size: 0.9375rem;
+            color: var(--slate-600);
+        }
+
+        .form-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 28px 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        /* Progress indicator */
+        .progress {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .progress-step {
+            flex: 1;
+            height: 4px;
+            background: var(--slate-200);
+            border-radius: 2px;
+            transition: background 0.3s;
+        }
+
+        .progress-step.active {
+            background: var(--amber-500);
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--slate-900);
+            margin-bottom: 6px;
+        }
+
+        .form-hint {
+            font-size: 0.75rem;
+            color: var(--slate-500);
+            font-weight: 400;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 1rem;
+            font-family: var(--font-sans);
+            color: var(--slate-900);
+            background: var(--white);
+            border: 2px solid var(--slate-200);
+            border-radius: 10px;
+            transition: all 0.15s;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .form-input:focus, .form-select:focus {
+            border-color: var(--slate-900);
+            box-shadow: 0 0 0 3px rgba(15,23,42,0.08);
+        }
+
+        .form-input::placeholder {
+            color: var(--slate-400);
+        }
+
+        /* Phone input type */
+        input[type="tel"] {
+            font-variant-numeric: tabular-nums;
+        }
+
+        .form-select {
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 18px;
+            padding-right: 40px;
+        }
+
+        .form-error {
+            display: none;
+            background: var(--red-100);
+            border: 1px solid #fecaca;
+            color: var(--red-600);
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            margin-bottom: 16px;
+        }
+
+        .form-error.visible {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-error svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 14px 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: var(--font-sans);
+            text-decoration: none;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .btn-primary {
+            background: var(--amber-500);
+            color: var(--slate-900);
+        }
+
+        .btn-primary:hover {
+            background: var(--amber-600);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: var(--slate-100);
+            color: var(--slate-700);
+        }
+
+        .btn-secondary:hover {
+            background: var(--slate-200);
+        }
+
+        .spinner {
+            display: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(0,0,0,0.2);
+            border-top-color: var(--slate-900);
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .form-footer {
+            margin-top: 16px;
+            text-align: center;
+        }
+
+        .form-terms {
+            font-size: 0.75rem;
+            color: var(--slate-500);
+            line-height: 1.5;
+        }
+
+        .form-terms a {
+            color: var(--slate-700);
+            text-decoration: underline;
+        }
+
+        .form-note {
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 0.8125rem;
+            color: var(--slate-600);
+        }
+
+        .form-note svg {
+            width: 14px;
+            height: 14px;
+            color: var(--teal-600);
+        }
+
+        /* Trust badges */
+        .trust-row {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--slate-100);
+        }
+
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.6875rem;
+            color: var(--slate-500);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .trust-badge svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        /* Benefits Side */
+        .benefits-side {
+            display: none;
+            flex: 1;
+            background: var(--slate-900);
+            padding: 48px;
+            color: var(--white);
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .benefits-side::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.03) 1px, transparent 0);
+            background-size: 32px 32px;
+        }
+
+        @media (min-width: 1024px) {
+            .benefits-side { display: flex; }
+        }
+
+        .benefits-content {
+            position: relative;
+            max-width: 380px;
+        }
+
+        .benefits-title {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 36px;
+            line-height: 1.2;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            margin-bottom: 24px;
+        }
+
+        .benefit-check {
+            width: 24px;
+            height: 24px;
+            background: var(--amber-500);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .benefit-check svg {
+            width: 14px;
+            height: 14px;
+            color: var(--slate-900);
+        }
+
+        .benefit-text h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .benefit-text p {
+            font-size: 0.875rem;
+            color: var(--slate-400);
+            line-height: 1.5;
+        }
+
+        .benefits-guarantee {
+            margin-top: 36px;
+            padding: 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .benefits-guarantee p {
+            font-size: 0.875rem;
+            color: var(--slate-300);
+            text-align: center;
+        }
+
+        .benefits-guarantee strong {
+            color: var(--amber-400);
+        }
+
+        /* Multi-step form */
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        .step-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .step-buttons .btn {
+            flex: 1;
+        }
+
+        /* Mobile optimizations */
+        @media (max-width: 480px) {
+            .form-card {
+                padding: 24px 20px;
+            }
+
+            .form-title {
+                font-size: 1.5rem;
+            }
+
+            .trust-row {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+        }
+
+        /* Input validation states */
+        .form-input.valid {
+            border-color: var(--teal-600);
+        }
+
+        .form-input.invalid {
+            border-color: var(--red-600);
+        }
+
+        /* Help text */
+        .help-link {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.875rem;
+            color: var(--slate-600);
+        }
+
+        .help-link a {
+            color: var(--slate-900);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .help-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Mobile benefits - visible only on mobile */
+        .mobile-benefits {
+            display: block;
+            background: var(--slate-900);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            color: var(--white);
+        }
+
+        .mobile-benefits h3 {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--white);
+        }
+
+        .mobile-benefit {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            font-size: 0.8125rem;
+            color: var(--slate-300);
+        }
+
+        .mobile-benefit svg {
+            width: 16px;
+            height: 16px;
+            color: var(--amber-400);
+            flex-shrink: 0;
+        }
+
+        .mobile-guarantee {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.75rem;
+            color: var(--amber-400);
+            text-align: center;
+        }
+
+        @media (min-width: 1024px) {
+            .mobile-benefits { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="/" class="logo">
+                <div class="logo-mark">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                    </svg>
+                </div>
+                <span class="logo-text">CallAlly</span>
+            </a>
+            <a href="/login.html" class="nav-link">
+                Have an account? <strong>Sign in</strong>
+            </a>
+        </div>
+    </nav>
+
+    <div class="main">
+        <div class="form-side">
+            <div class="form-container">
+                <div class="form-header">
+                    <h1 class="form-title">Start your free trial</h1>
+                    <p class="form-subtitle">Set up in 10 minutes. Cancel anytime.</p>
+                </div>
+
+                <div class="form-card">
+                    <div class="progress">
+                        <div class="progress-step active" id="progress1"></div>
+                        <div class="progress-step" id="progress2"></div>
+                    </div>
+
+                    <form id="signupForm">
+                        <!-- Step 1: Business Info -->
+                        <div class="form-step active" id="step1">
+                            <div class="form-group">
+                                <label for="businessName" class="form-label">Business name</label>
+                                <input type="text" id="businessName" name="businessName" required
+                                    class="form-input" placeholder="Your Business Name" autocomplete="organization">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone" class="form-label">
+                                    Your phone number
+                                    <span class="form-hint">We'll call this number in 5 min to show you a live demo</span>
+                                </label>
+                                <input type="tel" id="phone" name="phone" required
+                                    class="form-input" placeholder="(650) 201-5786" autocomplete="tel"
+                                    inputmode="tel">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="industry" class="form-label">Industry</label>
+                                <select id="industry" name="industry" required class="form-select">
+                                    <option value="">Select your industry</option>
+                                    <option value="hvac">HVAC / Heating & Cooling</option>
+                                    <option value="plumbing">Plumbing</option>
+                                    <option value="electrical">Electrical</option>
+                                    <option value="roofing">Roofing</option>
+                                    <option value="general_contractor">General Contractor</option>
+                                    <option value="landscaping">Landscaping</option>
+                                    <option value="cleaning">Cleaning Services</option>
+                                    <option value="pest_control">Pest Control</option>
+                                    <option value="garage_door">Garage Door</option>
+                                    <option value="locksmith">Locksmith</option>
+                                    <option value="dental">Dental Practice</option>
+                                    <option value="medical">Medical Practice</option>
+                                    <option value="medspa">Med Spa / Aesthetics</option>
+                                    <option value="chiropractic">Chiropractic</option>
+                                    <option value="veterinary">Veterinary</option>
+                                    <option value="legal">Law Firm</option>
+                                    <option value="accounting">Accounting / CPA</option>
+                                    <option value="realestate">Real Estate</option>
+                                    <option value="insurance">Insurance</option>
+                                    <option value="automotive">Auto Repair</option>
+                                    <option value="towing">Towing Service</option>
+                                    <option value="salon">Salon / Barbershop</option>
+                                    <option value="spa">Spa / Massage</option>
+                                    <option value="fitness">Gym / Personal Training</option>
+                                    <option value="photography">Photography</option>
+                                    <option value="moving">Moving Company</option>
+                                    <option value="property_management">Property Management</option>
+                                    <option value="restaurant">Restaurant / Food Service</option>
+                                    <option value="hotel">Hotel / Hospitality</option>
+                                    <option value="other">Other Service Business</option>
+                                </select>
+                            </div>
+
+                            <button type="button" id="nextBtn" class="btn btn-primary">
+                                Continue
+                                <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <!-- Step 2: Account Info -->
+                        <div class="form-step" id="step2">
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" id="email" name="email" required
+                                    class="form-input" placeholder="you@email.com" autocomplete="email"
+                                    inputmode="email">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password" class="form-label">
+                                    Password
+                                    <span class="form-hint">At least 8 characters</span>
+                                </label>
+                                <input type="password" id="password" name="password" required minlength="8"
+                                    class="form-input" placeholder="Create a password" autocomplete="new-password">
+                            </div>
+
+                            <div id="errorMsg" class="form-error">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <span id="errorText"></span>
+                            </div>
+
+                            <div class="step-buttons">
+                                <button type="button" id="backBtn" class="btn btn-secondary">Back</button>
+                                <button type="submit" id="submitBtn" class="btn btn-primary">
+                                    <span id="btnText">Start Free Trial</span>
+                                    <span id="spinner" class="spinner"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="form-footer">
+                        <p class="form-terms">
+                            By signing up, you agree to our <a href="/terms.html">Terms</a> and <a href="/privacy.html">Privacy Policy</a>.
+                        </p>
+                        <p class="form-note">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                            </svg>
+                            7-day free trial, then from $49/mo. Cancel anytime.
+                        </p>
+                    </div>
+
+                    <div class="trust-row">
+                        <span class="trust-badge">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                            </svg>
+                            256-bit SSL
+                        </span>
+                        <span class="trust-badge">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                            </svg>
+                            SOC 2
+                        </span>
+                        <span class="trust-badge">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                            </svg>
+                            Secure Payment
+                        </span>
+                    </div>
+                </div>
+
+                <p class="help-link">
+                    Questions? Call us: <a href="tel:+16502015786">(650) 201-5786</a>
+                </p>
+
+                <div class="mobile-benefits">
+                    <h3>Why businesses switch to CallAlly:</h3>
+                    <div class="mobile-benefit">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        <span>Live in 10 minutes, no tech skills needed</span>
+                    </div>
+                    <div class="mobile-benefit">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        <span>Answers calls 24/7/365, even holidays</span>
+                    </div>
+                    <div class="mobile-benefit">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        <span>Books appointments directly to your calendar</span>
+                    </div>
+                    <div class="mobile-guarantee">30-day money-back guarantee</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="benefits-side">
+            <div class="benefits-content">
+                <h2 class="benefits-title">Never miss another call. Never lose another customer.</h2>
+
+                <div class="benefit-item">
+                    <div class="benefit-check">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                        </svg>
+                    </div>
+                    <div class="benefit-text">
+                        <h3>Live in 10 minutes</h3>
+                        <p>No technical skills needed. Just answer a few questions about your business.</p>
+                    </div>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-check">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                        </svg>
+                    </div>
+                    <div class="benefit-text">
+                        <h3>Answers 24/7/365</h3>
+                        <p>Even Christmas. Even 3am. Every call answered by someone who knows your business.</p>
+                    </div>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-check">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                        </svg>
+                    </div>
+                    <div class="benefit-text">
+                        <h3>Books appointments for you</h3>
+                        <p>Collects info, checks availability, and adds to your calendar. You just show up.</p>
+                    </div>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-check">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                        </svg>
+                    </div>
+                    <div class="benefit-text">
+                        <h3>Pays for itself fast</h3>
+                        <p>One saved customer covers months of service. No contracts, cancel anytime.</p>
+                    </div>
+                </div>
+
+                <div class="benefits-guarantee">
+                    <p><strong>30-day money-back guarantee.</strong> If CallAlly doesn't pay for itself, we'll refund every penny.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Multi-step form handling
+        const form = document.getElementById('signupForm');
+        const step1 = document.getElementById('step1');
+        const step2 = document.getElementById('step2');
+        const progress1 = document.getElementById('progress1');
+        const progress2 = document.getElementById('progress2');
+        const nextBtn = document.getElementById('nextBtn');
+        const backBtn = document.getElementById('backBtn');
+        const submitBtn = document.getElementById('submitBtn');
+        const btnText = document.getElementById('btnText');
+        const spinner = document.getElementById('spinner');
+        const errorMsg = document.getElementById('errorMsg');
+        const errorText = document.getElementById('errorText');
+
+        // Phone formatting
+        const phoneInput = document.getElementById('phone');
+        phoneInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 0) {
+                if (value.length <= 3) {
+                    value = '(' + value;
+                } else if (value.length <= 6) {
+                    value = '(' + value.slice(0,3) + ') ' + value.slice(3);
+                } else {
+                    value = '(' + value.slice(0,3) + ') ' + value.slice(3,6) + '-' + value.slice(6,10);
+                }
+            }
+            e.target.value = value;
+        });
+
+        // Step navigation
+        nextBtn.addEventListener('click', function() {
+            const businessName = document.getElementById('businessName');
+            const phone = document.getElementById('phone');
+            const industry = document.getElementById('industry');
+
+            // Validate step 1
+            if (!businessName.value.trim()) {
+                businessName.focus();
+                return;
+            }
+            if (!phone.value.trim() || phone.value.replace(/\D/g, '').length < 10) {
+                phone.focus();
+                return;
+            }
+            if (!industry.value) {
+                industry.focus();
+                return;
+            }
+
+            // Move to step 2
+            step1.classList.remove('active');
+            step2.classList.add('active');
+            progress2.classList.add('active');
+            document.getElementById('email').focus();
+        });
+
+        backBtn.addEventListener('click', function() {
+            step2.classList.remove('active');
+            step1.classList.add('active');
+            progress2.classList.remove('active');
+        });
+
+        function setLoading(loading) {
+            submitBtn.disabled = loading;
+            btnText.textContent = loading ? 'Creating account...' : 'Start Free Trial';
+            spinner.style.display = loading ? 'block' : 'none';
+        }
+
+        function showError(message) {
+            errorText.textContent = message;
+            errorMsg.classList.add('visible');
+        }
+
+        function hideError() {
+            errorMsg.classList.remove('visible');
+        }
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            hideError();
+            setLoading(true);
+
+            const data = {
+                email: document.getElementById('email').value.trim(),
+                password: document.getElementById('password').value,
+                business_name: document.getElementById('businessName').value.trim(),
+                phone: document.getElementById('phone').value.replace(/\D/g, ''),
+                industry: document.getElementById('industry').value
+            };
+
+            try {
+                const response = await fetch('/api/auth/signup', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(result.detail || result.message || 'Something went wrong. Please try again.');
+                }
+
+                // Success - redirect to onboarding
+                window.location.href = result.redirect || `/onboarding.html?business_id=${result.business_id}`;
+
+            } catch (error) {
+                showError(error.message);
+                setLoading(false);
+            }
+        });
+
+        // Get plan from URL if present
+        const urlParams = new URLSearchParams(window.location.search);
+        const plan = urlParams.get('plan');
+        if (plan) {
+            // Store for later use in onboarding
+            sessionStorage.setItem('selectedPlan', plan);
+        }
+    </script>
+</body>
+</html>
