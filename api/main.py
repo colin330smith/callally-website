@@ -68,6 +68,15 @@ async def health_check():
     return {"status": "ok"}
 
 
+@app.post("/api/admin/reset-db")
+async def reset_database():
+    """Drop and recreate all tables. USE WITH CAUTION - deletes all data!"""
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.drop_all)
+        await conn.run_sync(Base.metadata.create_all)
+    return {"status": "ok", "message": "Database tables recreated"}
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(
