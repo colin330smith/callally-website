@@ -1,4 +1,6 @@
 # CallAlly API Dockerfile
+# Cache bust: 2026-01-10-v1
+ARG CACHEBUST=1
 FROM python:3.11-slim
 
 # Set working directory
