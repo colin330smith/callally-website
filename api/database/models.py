@@ -3,7 +3,7 @@ SQLAlchemy ORM Models for CallAlly
 """
 from datetime import datetime
 from typing import Optional, List
-from sqlalchemy import String, Integer, Boolean, Text, DateTime, ForeignKey, ARRAY, JSON
+from sqlalchemy import String, Integer, Boolean, Text, DateTime, ForeignKey, JSON
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.dialects.postgresql import UUID
 import uuid
@@ -39,7 +39,7 @@ class Business(Base):
     service_area: Mapped[Optional[str]] = mapped_column(Text)
 
     # Services & hours (onboarding step 2)
-    services: Mapped[Optional[List[str]]] = mapped_column(ARRAY(String), default=list)
+    services: Mapped[Optional[dict]] = mapped_column(JSON, default=list)
     custom_services: Mapped[Optional[str]] = mapped_column(Text)
     business_hours: Mapped[Optional[dict]] = mapped_column(JSON, default=dict)
 
@@ -47,13 +47,13 @@ class Business(Base):
     call_mode: Mapped[str] = mapped_column(String(20), default="forwarding")
     rings_before_ai: Mapped[int] = mapped_column(Integer, default=3)
     emergency_dispatch: Mapped[bool] = mapped_column(Boolean, default=False)
-    emergency_phones: Mapped[Optional[List[str]]] = mapped_column(ARRAY(String), default=list)
-    emergency_keywords: Mapped[Optional[List[str]]] = mapped_column(ARRAY(String), default=list)
+    emergency_phones: Mapped[Optional[dict]] = mapped_column(JSON, default=list)
+    emergency_keywords: Mapped[Optional[dict]] = mapped_column(JSON, default=list)
 
     # AI config (onboarding step 4)
     agent_name: Mapped[str] = mapped_column(String(50), default="Alex")
     agent_voice: Mapped[str] = mapped_column(String(50), default="rachel")
-    appointment_types: Mapped[Optional[List[str]]] = mapped_column(ARRAY(String), default=list)
+    appointment_types: Mapped[Optional[dict]] = mapped_column(JSON, default=list)
 
     # Notifications (onboarding step 5)
     notification_email: Mapped[Optional[str]] = mapped_column(String(255))
