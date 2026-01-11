@@ -43,7 +43,7 @@ class BusinessSummary(BaseModel):
     id: UUID
     name: str
     onboarding_step: int
-    onboarding_complete: bool
+    status: str
     subscription_status: Optional[str] = None
     vapi_phone_number: Optional[str] = None
 
