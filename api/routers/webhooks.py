@@ -204,7 +204,7 @@ async def handle_call_ended(data: Dict[str, Any], db: AsyncSession):
         call.transcript = transcript
         call.summary = summary
         call.recording_url = recording_url
-        call.duration_seconds = duration_seconds
+        call.duration = duration_seconds
         call.status = "completed"
         call.appointment_booked = appointment_booked
     else:
@@ -215,7 +215,7 @@ async def handle_call_ended(data: Dict[str, Any], db: AsyncSession):
             vapi_call_id=vapi_call_id,
             caller_phone=caller_phone,
             status="completed",
-            duration_seconds=duration_seconds,
+            duration=duration_seconds,
             transcript=transcript,
             summary=summary,
             recording_url=recording_url,
@@ -237,9 +237,9 @@ async def handle_call_ended(data: Dict[str, Any], db: AsyncSession):
 
     # Send email notification
     email = EmailService()
-    if business.email:
+    if business.notification_email:
         await email.send_call_notification(
-            email=business.email,
+            email=business.notification_email,
             business_name=business.name,
             caller_name=call.caller_name,
             caller_phone=caller_phone,
@@ -277,6 +277,18 @@ async def handle_function_call(data: Dict[str, Any], db: AsyncSession) -> Dict[s
         return {"result": "Error: Business not found"}
 
     if function_name == "bookAppointment":
+        # Parse date and time into a single datetime
+        date_str = parameters.get("date", datetime.utcnow().strftime("%Y-%m-%d"))
+        time_str = parameters.get("time", "9:00 AM")
+        try:
+            # Try to parse combined datetime
+            appointment_datetime = datetime.strptime(f"{date_str} {time_str}", "%Y-%m-%d %I:%M %p")
+        except ValueError:
+            try:
+                appointment_datetime = datetime.strptime(f"{date_str} {time_str}", "%Y-%m-%d %H:%M")
+            except ValueError:
+                appointment_datetime = datetime.strptime(date_str, "%Y-%m-%d")
+
         # Create appointment
         appointment = Appointment(
             id=uuid4(),
@@ -285,11 +297,8 @@ async def handle_function_call(data: Dict[str, Any], db: AsyncSession) -> Dict[s
             customer_phone=parameters.get("customerPhone", ""),
             customer_email=parameters.get("customerEmail"),
             service_type=parameters.get("serviceType", "General"),
-            appointment_date=datetime.strptime(
-                parameters.get("date", datetime.utcnow().strftime("%Y-%m-%d")),
-                "%Y-%m-%d"
-            ).date(),
-            appointment_time=parameters.get("time", "9:00 AM"),
+            appointment_date=appointment_datetime,
+            duration_minutes=60,
             status="scheduled",
             notes=parameters.get("notes")
         )
@@ -304,13 +313,13 @@ async def handle_function_call(data: Dict[str, Any], db: AsyncSession) -> Dict[s
                 business_name=business.name,
                 customer_name=appointment.customer_name,
                 service_type=appointment.service_type,
-                appointment_date=appointment.appointment_date.strftime("%B %d, %Y"),
-                appointment_time=appointment.appointment_time,
-                address=business.address
+                appointment_date=appointment.appointment_date.strftime("%B %d, %Y at %I:%M %p"),
+                appointment_time="",
+                address=business.service_area
             )
 
         return {
-            "result": f"Appointment booked for {appointment.customer_name} on {appointment.appointment_date} at {appointment.appointment_time}"
+            "result": f"Appointment booked for {appointment.customer_name} on {appointment.appointment_date.strftime('%B %d, %Y at %I:%M %p')}"
         }
 
     elif function_name == "checkAvailability":
@@ -325,7 +334,7 @@ async def handle_function_call(data: Dict[str, Any], db: AsyncSession) -> Dict[s
                 "name": business.name,
                 "hours": business.business_hours,
                 "services": business.services,
-                "address": business.address
+                "service_area": business.service_area
             }
         }
 
