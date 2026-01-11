@@ -38,49 +38,46 @@ class BusinessResponse(BaseModel):
     name: str
     industry: Optional[str] = None
     phone: Optional[str] = None
-    email: Optional[str] = None
-    website: Optional[str] = None
-    address: Optional[str] = None
-    city: Optional[str] = None
-    state: Optional[str] = None
-    zip_code: Optional[str] = None
-
-    # Services
-    services: Optional[List[str]] = None
-    custom_services: Optional[str] = None
     service_area: Optional[str] = None
 
-    # AI Agent
-    agent_name: Optional[str] = None
-    agent_voice: Optional[str] = None
-    greeting_style: Optional[str] = None
+    # Services & hours
+    services: Optional[List[Any]] = None
+    custom_services: Optional[str] = None
+    business_hours: Optional[Dict[str, Any]] = None
 
-    # Business Hours
-    business_hours: Optional[Dict[str, str]] = None
-
-    # Emergency
+    # Call handling
+    call_mode: str = "forwarding"
+    rings_before_ai: int = 3
     emergency_dispatch: bool = False
-    emergency_keywords: Optional[List[str]] = None
-    emergency_phones: Optional[List[str]] = None
+    emergency_phones: Optional[List[Any]] = None
+    emergency_keywords: Optional[List[Any]] = None
 
-    # Appointments
-    appointment_types: Optional[List[str]] = None
-    appointment_duration: int = 30
+    # AI config
+    agent_name: str = "Alex"
+    agent_voice: str = "rachel"
+    appointment_types: Optional[List[Any]] = None
 
-    # Vapi
+    # Notifications
+    notification_email: Optional[str] = None
+    notification_phone: Optional[str] = None
+
+    # Vapi integration
     vapi_assistant_id: Optional[str] = None
     vapi_phone_id: Optional[str] = None
     vapi_phone_number: Optional[str] = None
 
-    # Subscription
+    # Stripe integration
     stripe_customer_id: Optional[str] = None
+    stripe_subscription_id: Optional[str] = None
     subscription_plan: Optional[str] = None
     subscription_status: Optional[str] = None
     trial_ends_at: Optional[datetime] = None
+    minutes_used: int = 0
+    minutes_limit: int = 100
 
-    # Onboarding
-    onboarding_step: int = 1
-    onboarding_complete: bool = False
+    # Status
+    status: str = "onboarding"
+    onboarding_step: int = 0
 
     created_at: datetime
     updated_at: Optional[datetime] = None

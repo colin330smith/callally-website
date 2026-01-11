@@ -53,39 +53,32 @@ def apply_step_data(business: Business, step: int, data: Dict[str, Any]):
         business.name = data.get("business_name", business.name)
         business.industry = data.get("industry")
         business.phone = data.get("phone")
-        business.email = data.get("email", business.email)
-        business.website = data.get("website")
-        business.address = data.get("address")
-        business.city = data.get("city")
-        business.state = data.get("state")
-        business.zip_code = data.get("zip")
+        business.service_area = data.get("service_area")
 
     elif step == 2:
         # Services
         business.services = data.get("services", [])
         business.custom_services = data.get("custom_services")
-        business.service_area = data.get("service_area")
         business.appointment_types = data.get("appointment_types", [])
-        business.appointment_duration = data.get("appointment_duration", 30)
+        business.business_hours = data.get("business_hours", {})
 
     elif step == 3:
+        # Call handling
+        business.call_mode = data.get("call_mode", "forwarding")
+        business.rings_before_ai = data.get("rings_before_ai", 3)
+        business.emergency_dispatch = data.get("emergency_dispatch", False)
+        business.emergency_phones = data.get("emergency_phones", [])
+        business.emergency_keywords = data.get("emergency_keywords", [])
+
+    elif step == 4:
         # AI Agent customization
         business.agent_name = data.get("agent_name", "Alex")
         business.agent_voice = data.get("agent_voice", "rachel")
-        business.greeting_style = data.get("greeting_style", "friendly")
-
-    elif step == 4:
-        # Business hours
-        business.business_hours = {
-            "weekday": data.get("weekday_hours", "9am-5pm"),
-            "weekend": data.get("weekend_hours", "Closed")
-        }
 
     elif step == 5:
-        # Emergency handling
-        business.emergency_dispatch = data.get("emergency_dispatch", False)
-        business.emergency_keywords = data.get("emergency_keywords", [])
-        business.emergency_phones = data.get("emergency_phones", [])
+        # Notifications
+        business.notification_email = data.get("notification_email")
+        business.notification_phone = data.get("notification_phone")
 
 
 @router.post("/{business_id}/step", response_model=BusinessResponse)
@@ -100,7 +93,7 @@ async def save_onboarding_step(
     """
     business = await get_business_for_user(business_id, current_user, db)
 
-    if business.onboarding_complete:
+    if business.status == "active":
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Onboarding already complete"
@@ -143,7 +136,7 @@ async def complete_onboarding(
     """
     business = await get_business_for_user(business_id, current_user, db)
 
-    if business.onboarding_complete:
+    if business.status == "active":
         return OnboardingCompleteResponse(
             success=True,
             business_id=business.id,
@@ -181,7 +174,7 @@ async def complete_onboarding(
 
     # 3. Create Stripe customer
     stripe_customer_id = await stripe.create_customer(
-        email=business.email or current_user.email,
+        email=business.notification_email or current_user.email,
         business_name=business.name,
         business_id=str(business.id)
     )
@@ -202,13 +195,13 @@ async def complete_onboarding(
             business.trial_ends_at = subscription["trial_end"]
 
     # Mark onboarding complete
-    business.onboarding_complete = True
+    business.status = "active"
     await db.commit()
 
     # 5. Send welcome email
-    if business.email:
+    if business.notification_email:
         await email.send_welcome_email(
-            email=business.email,
+            email=business.notification_email,
             business_name=business.name,
             phone_number=business.vapi_phone_number or "Pending"
         )
