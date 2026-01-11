@@ -38,7 +38,14 @@ class StripeService:
         """Create a subscription with a trial period."""
         price_id = config.STRIPE_PRICES.get(plan)
         if not price_id:
-            return None
+            print(f"No price ID configured for plan: {plan}")
+            # Still return a valid response for trial-only mode
+            return {
+                "subscription_id": None,
+                "status": "trialing",
+                "trial_end": datetime.utcnow() + timedelta(days=trial_days),
+                "client_secret": None
+            }
 
         try:
             subscription = stripe.Subscription.create(
@@ -48,11 +55,18 @@ class StripeService:
                 payment_behavior="default_incomplete",
                 expand=["latest_invoice.payment_intent"]
             )
+
+            # Safely get client_secret
+            client_secret = None
+            if subscription.latest_invoice and hasattr(subscription.latest_invoice, 'payment_intent'):
+                if subscription.latest_invoice.payment_intent:
+                    client_secret = subscription.latest_invoice.payment_intent.client_secret
+
             return {
                 "subscription_id": subscription.id,
                 "status": subscription.status,
                 "trial_end": datetime.fromtimestamp(subscription.trial_end) if subscription.trial_end else None,
-                "client_secret": subscription.latest_invoice.payment_intent.client_secret if subscription.latest_invoice else None
+                "client_secret": client_secret
             }
         except stripe.error.StripeError as e:
             print(f"Stripe subscription error: {e}")
