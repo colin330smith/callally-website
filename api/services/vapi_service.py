@@ -227,10 +227,9 @@ For urgent situations:
         if not self.api_key or not assistant_id:
             return None
 
-        # First, buy a phone number
+        # Buy a phone number using Vapi's native provider
         buy_payload = {
-            "provider": "twilio",
-            "areaCode": "415",  # San Francisco area code
+            "provider": "vapi",
             "assistantId": assistant_id
         }
 
