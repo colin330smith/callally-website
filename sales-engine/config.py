@@ -23,6 +23,7 @@ TWILIO_PHONE = os.getenv("TWILIO_PHONE", "")
 # Vapi for AI calls
 VAPI_API_KEY = os.getenv("VAPI_API_KEY", "")
 VAPI_ASSISTANT_ID = os.getenv("VAPI_ASSISTANT_ID", "")
+VAPI_PHONE_ID = os.getenv("VAPI_PHONE_ID", "")
 
 # Database
 DATABASE_PATH = os.path.join(os.path.dirname(__file__), "sales.db")

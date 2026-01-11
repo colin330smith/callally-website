@@ -134,6 +134,8 @@ async def complete_onboarding(
     """
     Complete onboarding: Create Vapi assistant, provision phone, start trial.
     """
+    import traceback
+
     business = await get_business_for_user(business_id, current_user, db)
 
     if business.status == "active":
@@ -156,60 +158,92 @@ async def complete_onboarding(
     stripe = StripeService()
     email = EmailService()
 
+    errors = []
+
     # 1. Create Vapi AI Assistant
-    assistant_id = await vapi.create_assistant(business)
-    if not assistant_id:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Failed to create AI assistant. Please try again."
-        )
+    try:
+        assistant_id = await vapi.create_assistant(business)
+        if assistant_id:
+            business.vapi_assistant_id = assistant_id
+        else:
+            errors.append("Vapi assistant creation returned None")
+    except Exception as e:
+        errors.append(f"Vapi assistant error: {str(e)}")
+        print(f"Vapi error traceback: {traceback.format_exc()}")
+        assistant_id = None
 
-    business.vapi_assistant_id = assistant_id
-
-    # 2. Provision phone number
-    phone_result = await vapi.provision_phone_number(assistant_id)
-    if phone_result:
-        business.vapi_phone_id = phone_result["phone_id"]
-        business.vapi_phone_number = phone_result["phone_number"]
+    # 2. Provision phone number (only if assistant was created)
+    if business.vapi_assistant_id:
+        try:
+            phone_result = await vapi.provision_phone_number(business.vapi_assistant_id)
+            if phone_result:
+                business.vapi_phone_id = phone_result["phone_id"]
+                business.vapi_phone_number = phone_result["phone_number"]
+            else:
+                errors.append("Phone provisioning returned None")
+        except Exception as e:
+            errors.append(f"Phone provisioning error: {str(e)}")
+            print(f"Phone error traceback: {traceback.format_exc()}")
 
     # 3. Create Stripe customer
-    stripe_customer_id = await stripe.create_customer(
-        email=business.notification_email or current_user.email,
-        business_name=business.name,
-        business_id=str(business.id)
-    )
-
-    if stripe_customer_id:
-        business.stripe_customer_id = stripe_customer_id
-
-        # 4. Create trial subscription
-        subscription = await stripe.create_subscription(
-            customer_id=stripe_customer_id,
-            plan="starter",
-            trial_days=7
+    try:
+        stripe_customer_id = await stripe.create_customer(
+            email=business.notification_email or current_user.email,
+            business_name=business.name,
+            business_id=str(business.id)
         )
 
-        if subscription:
-            business.subscription_plan = "starter"
-            business.subscription_status = subscription["status"]
-            business.trial_ends_at = subscription["trial_end"]
+        if stripe_customer_id:
+            business.stripe_customer_id = stripe_customer_id
 
-    # Mark onboarding complete
+            # 4. Create trial subscription
+            try:
+                subscription = await stripe.create_subscription(
+                    customer_id=stripe_customer_id,
+                    plan="starter",
+                    trial_days=7
+                )
+
+                if subscription:
+                    business.subscription_plan = "starter"
+                    business.subscription_status = subscription["status"]
+                    business.trial_ends_at = subscription["trial_end"]
+                else:
+                    errors.append("Subscription creation returned None (price ID may not be set)")
+            except Exception as e:
+                errors.append(f"Subscription error: {str(e)}")
+        else:
+            errors.append("Stripe customer creation returned None")
+    except Exception as e:
+        errors.append(f"Stripe error: {str(e)}")
+        print(f"Stripe error traceback: {traceback.format_exc()}")
+
+    # Mark onboarding complete even with partial failures
     business.status = "active"
     await db.commit()
 
     # 5. Send welcome email
     if business.notification_email:
-        await email.send_welcome_email(
-            email=business.notification_email,
-            business_name=business.name,
-            phone_number=business.vapi_phone_number or "Pending"
-        )
+        try:
+            await email.send_welcome_email(
+                email=business.notification_email,
+                business_name=business.name,
+                phone_number=business.vapi_phone_number or "Pending"
+            )
+        except Exception as e:
+            errors.append(f"Email error: {str(e)}")
+
+    # Build response message
+    if errors:
+        print(f"Onboarding completed with errors: {errors}")
+        message = "Setup complete with some issues: " + "; ".join(errors[:2])
+    else:
+        message = "Your AI receptionist is now live!"
 
     return OnboardingCompleteResponse(
         success=True,
         business_id=business.id,
         phone_number=business.vapi_phone_number,
         assistant_id=business.vapi_assistant_id,
-        message="Your AI receptionist is now live!"
+        message=message
     )

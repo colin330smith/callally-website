@@ -78,6 +78,7 @@ VOICE_OPTIONS = {
     "adam": "pNInz6obpgDQGcFmaJgB",    # Adam - male, professional
     "sarah": "EXAVITQu4vr4xnSDxMaL",   # Sarah - female, warm
     "josh": "TxGEqnHWrfWFTfGW9XjX",    # Josh - male, casual
+    "shimmer": "EXAVITQu4vr4xnSDxMaL", # Shimmer - alias for sarah
 }
 
 
