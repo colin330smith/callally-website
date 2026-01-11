@@ -40,15 +40,21 @@ class CallResponse(BaseModel):
     """Response model for a single call."""
     id: UUID
     business_id: UUID
-    vapi_call_id: str
-    caller_phone: str
+    vapi_call_id: Optional[str] = None
+    caller_phone: Optional[str] = None
     caller_name: Optional[str] = None
-    status: str
-    duration_seconds: Optional[int] = None
+    direction: str = "inbound"
+    status: Optional[str] = None
+    duration: Optional[int] = None
+    started_at: Optional[datetime] = None
+    ended_at: Optional[datetime] = None
     transcript: Optional[str] = None
     summary: Optional[str] = None
     recording_url: Optional[str] = None
     appointment_booked: bool = False
+    callback_requested: bool = False
+    emergency_triggered: bool = False
+    extracted_data: Optional[dict] = None
     created_at: datetime
 
     class Config:
@@ -69,9 +75,10 @@ class AppointmentCreate(BaseModel):
     customer_name: str
     customer_phone: str
     customer_email: Optional[EmailStr] = None
+    customer_address: Optional[str] = None
     service_type: str
-    appointment_date: date
-    appointment_time: str
+    appointment_date: datetime
+    duration_minutes: int = 60
     notes: Optional[str] = None
 
 
@@ -80,9 +87,10 @@ class AppointmentUpdate(BaseModel):
     customer_name: Optional[str] = None
     customer_phone: Optional[str] = None
     customer_email: Optional[EmailStr] = None
+    customer_address: Optional[str] = None
     service_type: Optional[str] = None
-    appointment_date: Optional[date] = None
-    appointment_time: Optional[str] = None
+    appointment_date: Optional[datetime] = None
+    duration_minutes: Optional[int] = None
     status: Optional[AppointmentStatus] = None
     notes: Optional[str] = None
 
@@ -92,13 +100,15 @@ class AppointmentResponse(BaseModel):
     id: UUID
     business_id: UUID
     call_id: Optional[UUID] = None
-    customer_name: str
-    customer_phone: str
+    customer_name: Optional[str] = None
+    customer_phone: Optional[str] = None
     customer_email: Optional[str] = None
-    service_type: str
-    appointment_date: date
-    appointment_time: str
-    status: str
+    customer_address: Optional[str] = None
+    service_type: Optional[str] = None
+    appointment_date: Optional[datetime] = None
+    duration_minutes: int = 60
+    status: str = "scheduled"
+    reminder_sent: bool = False
     notes: Optional[str] = None
     created_at: datetime
     updated_at: Optional[datetime] = None
