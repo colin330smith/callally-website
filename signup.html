@@ -894,6 +894,8 @@
             errorMsg.classList.remove('visible');
         }
 
+        const API_URL = 'https://callally-website-production.up.railway.app';
+
         form.addEventListener('submit', async function(e) {
             e.preventDefault();
             hideError();
@@ -902,13 +904,15 @@
             const data = {
                 email: document.getElementById('email').value.trim(),
                 password: document.getElementById('password').value,
-                business_name: document.getElementById('businessName').value.trim(),
-                phone: document.getElementById('phone').value.replace(/\D/g, ''),
-                industry: document.getElementById('industry').value
+                business_name: document.getElementById('businessName').value.trim()
             };
 
+            // Store additional info for onboarding
+            sessionStorage.setItem('signup_phone', document.getElementById('phone').value.replace(/\D/g, ''));
+            sessionStorage.setItem('signup_industry', document.getElementById('industry').value);
+
             try {
-                const response = await fetch('/api/auth/signup', {
+                const response = await fetch(`${API_URL}/api/auth/signup`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
@@ -920,8 +924,12 @@
                     throw new Error(result.detail || result.message || 'Something went wrong. Please try again.');
                 }
 
+                // Store auth data
+                localStorage.setItem('access_token', result.access_token);
+                localStorage.setItem('business_id', result.business_id);
+
                 // Success - redirect to onboarding
-                window.location.href = result.redirect || `/onboarding.html?business_id=${result.business_id}`;
+                window.location.href = `/onboarding.html?business_id=${result.business_id}`;
 
             } catch (error) {
                 showError(error.message);

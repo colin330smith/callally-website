@@ -1330,10 +1330,19 @@
     </div>
 
     <script>
+        const API_URL = 'https://callally-website-production.up.railway.app';
         let currentStep = 1;
         const totalSteps = 5;
-        let businessId = null;
+        let businessId = localStorage.getItem('business_id') || new URLSearchParams(window.location.search).get('business_id');
+        let accessToken = localStorage.getItem('access_token');
         let formData = {};
+
+        function getAuthHeaders() {
+            return {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`
+            };
+        }
 
         // Industry-specific services
         const industryServices = {
@@ -1353,23 +1362,38 @@
         };
 
         async function init() {
-            const response = await fetch('/api/auth/me');
-            const data = await response.json();
-
-            if (!data.authenticated) {
-                window.location.href = '/signup.html';
+            // Redirect to login if no auth token
+            if (!accessToken) {
+                window.location.href = '/login.html';
                 return;
             }
 
-            if (data.businesses && data.businesses.length > 0) {
-                businessId = data.businesses[0].id;
-                const biz = data.businesses[0];
-                if (biz.name) document.getElementById('name').value = biz.name;
-                if (biz.industry) {
-                    document.getElementById('industry').value = biz.industry;
-                    updateServicesForIndustry(biz.industry);
+            try {
+                const response = await fetch(`${API_URL}/api/auth/me`, {
+                    headers: getAuthHeaders()
+                });
+                const data = await response.json();
+
+                if (!response.ok || !data.user) {
+                    window.location.href = '/login.html';
+                    return;
                 }
-                if (biz.notification_email) document.getElementById('notification_email').value = biz.notification_email;
+
+                if (data.businesses && data.businesses.length > 0) {
+                    businessId = data.businesses[0].id;
+                    localStorage.setItem('business_id', businessId);
+                    const biz = data.businesses[0];
+                    if (biz.name) document.getElementById('name').value = biz.name;
+                    if (biz.industry) {
+                        document.getElementById('industry').value = biz.industry;
+                        updateServicesForIndustry(biz.industry);
+                    }
+                    if (biz.notification_email) document.getElementById('notification_email').value = biz.notification_email;
+                }
+            } catch (e) {
+                console.error('Init error:', e);
+                window.location.href = '/login.html';
+                return;
             }
 
             document.getElementById('industry').addEventListener('change', (e) => {
@@ -1529,9 +1553,9 @@
             const data = collectStepData(step);
             Object.assign(formData, data);
             try {
-                const response = await fetch(`/api/onboarding/${businessId}/step`, {
+                const response = await fetch(`${API_URL}/api/onboarding/${businessId}/step`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: getAuthHeaders(),
                     body: JSON.stringify({ step, data })
                 });
                 return response.ok;
@@ -1544,15 +1568,15 @@
         async function completeOnboarding() {
             document.getElementById('loadingModal').classList.add('visible');
             try {
-                const response = await fetch(`/api/onboarding/${businessId}/complete`, {
+                const response = await fetch(`${API_URL}/api/onboarding/${businessId}/complete`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' }
+                    headers: getAuthHeaders()
                 });
                 const data = await response.json();
-                if (data.success) {
-                    window.location.href = data.redirect || '/dashboard.html';
+                if (response.ok && data.success) {
+                    window.location.href = `/dashboard.html?business_id=${businessId}`;
                 } else {
-                    alert('Error creating agent: ' + (data.error || 'Unknown error'));
+                    alert('Error creating agent: ' + (data.error || data.detail || 'Unknown error'));
                     document.getElementById('loadingModal').classList.remove('visible');
                 }
             } catch (e) {

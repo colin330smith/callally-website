@@ -1253,7 +1253,7 @@
                     <button onclick="switchTab('sms')" id="tabSms" class="nav-tab">SMS</button>
                     <button onclick="switchTab('integrations')" id="tabIntegrations" class="nav-tab">Integrations</button>
                     <button onclick="openSettings()" class="nav-tab">Settings</button>
-                    <a href="/api/stripe/portal" class="nav-tab">Billing</a>
+                    <button onclick="openBilling()" class="nav-tab">Billing</button>
                 </div>
             </div>
             <div class="nav-right">
@@ -1274,7 +1274,7 @@
             <button onclick="switchTab('sms'); toggleMobileMenu()" class="mobile-menu-item">SMS</button>
             <button onclick="switchTab('integrations'); toggleMobileMenu()" class="mobile-menu-item">Integrations</button>
             <button onclick="openSettings(); toggleMobileMenu()" class="mobile-menu-item">Settings</button>
-            <a href="/api/stripe/portal" class="mobile-menu-item">Billing</a>
+            <button onclick="openBilling(); toggleMobileMenu()" class="mobile-menu-item">Billing</button>
         </div>
     </nav>
 
@@ -1752,41 +1752,62 @@
     </div>
 
     <script>
+        const API_URL = 'https://callally-website-production.up.railway.app';
+        let accessToken = localStorage.getItem('access_token');
         let business = null;
         let calls = [];
         let appointments = [];
         let charts = {};
         let currentTimeRange = '7d';
 
-        async function init() {
-            const response = await fetch('/api/auth/me');
-            const data = await response.json();
+        function getAuthHeaders() {
+            return {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`
+            };
+        }
 
-            if (!data.authenticated) {
-                window.location.href = '/signup.html';
+        async function init() {
+            if (!accessToken) {
+                window.location.href = '/login.html';
                 return;
             }
 
-            document.getElementById('userEmail').textContent = data.user.email;
+            try {
+                const response = await fetch(`${API_URL}/api/auth/me`, {
+                    headers: getAuthHeaders()
+                });
+                const data = await response.json();
 
-            if (data.businesses && data.businesses.length > 0) {
-                business = data.businesses[0];
-
-                if (business.status === 'onboarding') {
-                    window.location.href = '/onboarding.html?business_id=' + business.id;
+                if (!response.ok || !data.user) {
+                    window.location.href = '/login.html';
                     return;
                 }
 
-                document.getElementById('businessName').textContent = business.name;
-                document.getElementById('agentPhone').textContent = business.vapi_phone_number || 'Not assigned';
-                document.getElementById('phoneNumber').textContent = business.vapi_phone_number ?
-                    `Your AI answers: ${business.vapi_phone_number}` : 'Phone number pending';
+                document.getElementById('userEmail').textContent = data.user.email;
 
-                loadStats();
-                loadCalls();
-                loadAppointments();
-            } else {
-                window.location.href = '/onboarding.html';
+                if (data.businesses && data.businesses.length > 0) {
+                    business = data.businesses[0];
+
+                    if (business.status === 'onboarding') {
+                        window.location.href = '/onboarding.html?business_id=' + business.id;
+                        return;
+                    }
+
+                    document.getElementById('businessName').textContent = business.name;
+                    document.getElementById('agentPhone').textContent = business.vapi_phone_number || 'Not assigned';
+                    document.getElementById('phoneNumber').textContent = business.vapi_phone_number ?
+                        `Your AI answers: ${business.vapi_phone_number}` : 'Phone number pending';
+
+                    loadStats();
+                    loadCalls();
+                    loadAppointments();
+                } else {
+                    window.location.href = '/onboarding.html';
+                }
+            } catch (e) {
+                console.error('Init error:', e);
+                window.location.href = '/login.html';
             }
         }
 
@@ -1830,14 +1851,15 @@
 
         async function loadStats() {
             try {
-                const response = await fetch(`/api/business/${business.id}/stats`);
-                const data = await response.json();
-                const stats = data.stats;
+                const response = await fetch(`${API_URL}/api/business/${business.id}/stats`, {
+                    headers: getAuthHeaders()
+                });
+                const stats = await response.json();
 
-                document.getElementById('statTotalCalls').textContent = stats.total_calls;
-                document.getElementById('statToday').textContent = stats.calls_today;
-                document.getElementById('statAppointments').textContent = stats.appointments_booked;
-                document.getElementById('statDuration').textContent = stats.avg_duration_seconds + 's';
+                document.getElementById('statTotalCalls').textContent = stats.total_calls || 0;
+                document.getElementById('statToday').textContent = stats.calls_today || 0;
+                document.getElementById('statAppointments').textContent = stats.appointments_booked || 0;
+                document.getElementById('statDuration').textContent = (stats.average_call_duration || 0) + 's';
             } catch (e) {
                 console.error('Stats error:', e);
             }
@@ -1845,9 +1867,11 @@
 
         async function loadCalls() {
             try {
-                const response = await fetch(`/api/business/${business.id}/calls`);
+                const response = await fetch(`${API_URL}/api/business/${business.id}/calls`, {
+                    headers: getAuthHeaders()
+                });
                 const data = await response.json();
-                calls = data.calls;
+                calls = data.calls || [];
                 renderCalls(calls);
             } catch (e) {
                 console.error('Calls error:', e);
@@ -1940,7 +1964,9 @@
 
         async function loadAppointments() {
             try {
-                const response = await fetch(`/api/business/${business.id}/appointments`);
+                const response = await fetch(`${API_URL}/api/business/${business.id}/appointments`, {
+                    headers: getAuthHeaders()
+                });
                 const data = await response.json();
                 appointments = data.appointments || [];
                 renderAppointments();
@@ -2109,18 +2135,17 @@
             }
 
             try {
-                const response = await fetch(`/api/business/${business.id}/test-call`, {
+                const response = await fetch(`${API_URL}/api/business/${business.id}/test-call?phone_number=${encodeURIComponent(phone)}`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ phone_number: phone })
+                    headers: getAuthHeaders()
                 });
                 const data = await response.json();
 
-                if (data.success) {
+                if (response.ok) {
                     alert('Call initiated! Your phone should ring shortly.');
                     closeTestCall();
                 } else {
-                    alert('Error: ' + (data.error || 'Failed to make call'));
+                    alert('Error: ' + (data.detail || data.error || 'Failed to make call'));
                 }
             } catch (e) {
                 alert('Error: ' + e.message);
@@ -2152,16 +2177,18 @@
             };
 
             try {
-                const response = await fetch(`/api/business/${business.id}`, {
+                const response = await fetch(`${API_URL}/api/business/${business.id}`, {
                     method: 'PATCH',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: getAuthHeaders(),
                     body: JSON.stringify(updates)
                 });
 
                 if (response.ok) {
                     alert('Settings saved! Your AI agent has been updated.');
                     closeSettings();
-                    const meResponse = await fetch('/api/auth/me');
+                    const meResponse = await fetch(`${API_URL}/api/auth/me`, {
+                        headers: getAuthHeaders()
+                    });
                     const meData = await meResponse.json();
                     if (meData.businesses) business = meData.businesses[0];
                 } else {
@@ -2174,7 +2201,9 @@
 
         async function exportCSV() {
             try {
-                const response = await fetch(`/api/business/${business.id}/calls/export`);
+                const response = await fetch(`${API_URL}/api/business/${business.id}/calls/export`, {
+                    headers: getAuthHeaders()
+                });
                 const blob = await response.blob();
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
@@ -2191,7 +2220,9 @@
 
         async function exportAppointmentsICS() {
             try {
-                const response = await fetch(`/api/business/${business.id}/appointments/export`);
+                const response = await fetch(`${API_URL}/api/business/${business.id}/appointments/export`, {
+                    headers: getAuthHeaders()
+                });
                 const blob = await response.blob();
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
@@ -2372,14 +2403,33 @@
         }
 
         async function logout() {
-            await fetch('/api/auth/logout', { method: 'POST' });
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('business_id');
             window.location.href = '/';
+        }
+
+        async function openBilling() {
+            try {
+                const response = await fetch(`${API_URL}/api/stripe/portal/${business.id}`, {
+                    headers: getAuthHeaders()
+                });
+                const data = await response.json();
+                if (data.url) {
+                    window.location.href = data.url;
+                } else {
+                    alert('Unable to open billing portal');
+                }
+            } catch (e) {
+                alert('Error: ' + e.message);
+            }
         }
 
         // SMS Functions
         async function loadSmsMessages() {
             try {
-                const response = await fetch(`/api/business/${business.id}/sms`);
+                const response = await fetch(`${API_URL}/api/business/${business.id}/sms`, {
+                    headers: getAuthHeaders()
+                });
                 const data = await response.json();
                 renderSmsMessages(data.messages || []);
                 updateSmsStats(data.stats || {});
@@ -2440,9 +2490,9 @@
 
         async function sendSms(phone, message) {
             try {
-                const response = await fetch(`/api/business/${business.id}/sms`, {
+                const response = await fetch(`${API_URL}/api/business/${business.id}/sms`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: getAuthHeaders(),
                     body: JSON.stringify({ to_phone: phone, message: message })
                 });
                 if (response.ok) {
@@ -2459,13 +2509,15 @@
         // Integrations Functions
         async function loadIntegrations() {
             try {
-                const response = await fetch(`/api/business/${business.id}/integrations`);
+                const response = await fetch(`${API_URL}/api/business/${business.id}/integrations`, {
+                    headers: getAuthHeaders()
+                });
                 const data = await response.json();
                 updateIntegrationStatuses(data.integrations || []);
-                document.getElementById('webhookUrl').value = `${window.location.origin}/api/webhooks/${business.id}`;
+                document.getElementById('webhookUrl').value = `${API_URL}/api/webhooks/${business.id}`;
             } catch (e) {
                 console.error('Integrations error:', e);
-                document.getElementById('webhookUrl').value = `${window.location.origin}/api/webhooks/${business.id}`;
+                document.getElementById('webhookUrl').value = `${API_URL}/api/webhooks/${business.id}`;
             }
         }
 
@@ -2501,9 +2553,9 @@
             if (!apiKey) return;
 
             try {
-                const response = await fetch(`/api/business/${business.id}/integrations`, {
+                const response = await fetch(`${API_URL}/api/business/${business.id}/integrations`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: getAuthHeaders(),
                     body: JSON.stringify({ integration_type: type, api_key: apiKey })
                 });
                 if (response.ok) {

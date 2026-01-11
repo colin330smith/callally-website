@@ -424,6 +424,8 @@
             errorMsg.classList.remove('visible');
         }
 
+        const API_URL = 'https://callally-website-production.up.railway.app';
+
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             hideError();
@@ -435,7 +437,7 @@
             };
 
             try {
-                const response = await fetch('/api/auth/login', {
+                const response = await fetch(`${API_URL}/api/auth/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
@@ -447,7 +449,11 @@
                     throw new Error(result.detail || 'Invalid email or password');
                 }
 
-                window.location.href = result.redirect || `/dashboard.html?business_id=${result.business_id}`;
+                // Store auth data
+                localStorage.setItem('access_token', result.access_token);
+                localStorage.setItem('business_id', result.business_id);
+
+                window.location.href = `/dashboard.html?business_id=${result.business_id}`;
 
             } catch (error) {
                 showError(error.message);
