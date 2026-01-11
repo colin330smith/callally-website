@@ -74,7 +74,7 @@ async def signup(request: SignupRequest, db: AsyncSession = Depends(get_db)):
         print(traceback.format_exc())
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Signup failed: {type(e).__name__}: {str(e)}"
+            detail="Signup failed. Please try again."
         )
 
 

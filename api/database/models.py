@@ -30,7 +30,7 @@ class Business(Base):
     __tablename__ = "businesses"
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
 
     # Basic info (signup + onboarding step 1)
     name: Mapped[str] = mapped_column(String(255), nullable=False)
@@ -92,7 +92,7 @@ class Call(Base):
     __tablename__ = "calls"
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    business_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("businesses.id", ondelete="CASCADE"), nullable=False)
+    business_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("businesses.id", ondelete="CASCADE"), nullable=False, index=True)
     vapi_call_id: Mapped[Optional[str]] = mapped_column(String(100), unique=True, index=True)
 
     # Call details
@@ -128,7 +128,7 @@ class Appointment(Base):
     __tablename__ = "appointments"
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    business_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("businesses.id", ondelete="CASCADE"), nullable=False)
+    business_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("businesses.id", ondelete="CASCADE"), nullable=False, index=True)
     call_id: Mapped[Optional[uuid.UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("calls.id"), nullable=True)
 
     # Customer info
@@ -139,7 +139,7 @@ class Appointment(Base):
 
     # Appointment details
     service_type: Mapped[Optional[str]] = mapped_column(String(100))
-    appointment_date: Mapped[Optional[datetime]] = mapped_column(DateTime)
+    appointment_date: Mapped[Optional[datetime]] = mapped_column(DateTime, index=True)
     duration_minutes: Mapped[int] = mapped_column(Integer, default=60)
     notes: Mapped[Optional[str]] = mapped_column(Text)
 
@@ -159,7 +159,7 @@ class SMSMessage(Base):
     __tablename__ = "sms_messages"
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    business_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("businesses.id", ondelete="CASCADE"), nullable=False)
+    business_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("businesses.id", ondelete="CASCADE"), nullable=False, index=True)
 
     phone_number: Mapped[str] = mapped_column(String(20), nullable=False)
     direction: Mapped[str] = mapped_column(String(10), nullable=False)  # inbound/outbound
@@ -178,7 +178,7 @@ class Integration(Base):
     __tablename__ = "integrations"
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    business_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("businesses.id", ondelete="CASCADE"), nullable=False)
+    business_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("businesses.id", ondelete="CASCADE"), nullable=False, index=True)
 
     provider: Mapped[str] = mapped_column(String(50), nullable=False)
     status: Mapped[str] = mapped_column(String(50), default="disconnected")
@@ -198,9 +198,9 @@ class UsageRecord(Base):
     __tablename__ = "usage_records"
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    business_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("businesses.id", ondelete="CASCADE"), nullable=False)
+    business_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("businesses.id", ondelete="CASCADE"), nullable=False, index=True)
 
-    record_date: Mapped[datetime] = mapped_column(DateTime, nullable=False)
+    record_date: Mapped[datetime] = mapped_column(DateTime, nullable=False, index=True)
     call_count: Mapped[int] = mapped_column(Integer, default=0)
     minutes_used: Mapped[float] = mapped_column(Integer, default=0)
     appointments_booked: Mapped[int] = mapped_column(Integer, default=0)

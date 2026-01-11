@@ -139,6 +139,15 @@ async def vapi_webhook(request: Request, db: AsyncSession = Depends(get_db)):
     """
     Handle Vapi webhook events (call events, transcripts).
     """
+    # Verify Vapi webhook secret if configured
+    if config.VAPI_WEBHOOK_SECRET:
+        vapi_secret = request.headers.get("x-vapi-secret")
+        if vapi_secret != config.VAPI_WEBHOOK_SECRET:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid webhook secret"
+            )
+
     data = await request.json()
     message_type = data.get("message", {}).get("type")
 
