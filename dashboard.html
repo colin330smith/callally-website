@@ -2410,7 +2410,7 @@
 
         async function openBilling() {
             try {
-                const response = await fetch(`${API_URL}/api/stripe/portal/${business.id}`, {
+                const response = await fetch(`${API_URL}/api/business/${business.id}/billing-portal`, {
                     headers: getAuthHeaders()
                 });
                 const data = await response.json();

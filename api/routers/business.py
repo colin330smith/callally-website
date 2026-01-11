@@ -413,3 +413,34 @@ async def delete_appointment(
     await db.commit()
 
     return {"message": "Appointment deleted"}
+
+
+@router.get("/{business_id}/billing-portal")
+async def get_billing_portal(
+    business_id: UUID,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db)
+):
+    """Get Stripe billing portal URL."""
+    from services.stripe_service import StripeService
+
+    business = await get_business_for_user(business_id, current_user, db)
+
+    if not business.stripe_customer_id:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="No billing account found"
+        )
+
+    portal_url = await StripeService.create_portal_session(
+        business.stripe_customer_id,
+        return_url=f"https://callallynow.com/dashboard.html?business_id={business_id}"
+    )
+
+    if not portal_url:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to create billing portal session"
+        )
+
+    return {"url": portal_url}
