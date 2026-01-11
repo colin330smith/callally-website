@@ -178,12 +178,13 @@ async def complete_onboarding(
             phone_result = await vapi.provision_phone_number(business.vapi_assistant_id)
             if phone_result:
                 business.vapi_phone_id = phone_result["phone_id"]
-                business.vapi_phone_number = phone_result["phone_number"]
-            else:
-                errors.append("Phone provisioning returned None")
+                business.vapi_phone_number = phone_result.get("phone_number")
+                # If no phone number returned, note that it needs manual setup
+                if not business.vapi_phone_number:
+                    print(f"Phone created without number - manual setup needed for business {business.id}")
         except Exception as e:
-            errors.append(f"Phone provisioning error: {str(e)}")
-            print(f"Phone error traceback: {traceback.format_exc()}")
+            # Phone provisioning is optional - assistant still works
+            print(f"Phone provisioning note: {str(e)}")
 
     # 3. Create Stripe customer
     try:
